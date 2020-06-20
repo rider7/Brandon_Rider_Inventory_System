@@ -27,6 +27,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import static Inventory_System.Model.Inventory.allPartsList;
+import static Inventory_System.Model.Inventory.allProductsList;
+
 
 public class Main_Screen_Controller implements Initializable {
 
@@ -64,16 +66,16 @@ public class Main_Screen_Controller implements Initializable {
     private TableView<Product> productsTableView;
 
     @FXML
-    private TableColumn<Product, Integer> productIDColumn;
+    private TableColumn<Product, Integer> productsIDColumn;
 
     @FXML
-    private TableColumn<Product, String> productNameColumn;
+    private TableColumn<Product, String> productsNameColumn;
 
     @FXML
-    private TableColumn<Product, Integer> productInventoryColumn;
+    private TableColumn<Product, Integer> productsInventoryColumn;
 
     @FXML
-    private TableColumn<Product, Double> productPriceColumn;
+    private TableColumn<Product, Double> productsPriceColumn;
 
     @FXML
     private Button addProductButton;
@@ -143,15 +145,25 @@ public class Main_Screen_Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //sets the columns
+        //sets the columns parts
         partsIDColumn.setCellValueFactory(new PropertyValueFactory<Part, Integer>("id"));
         partsNameColumn.setCellValueFactory(new PropertyValueFactory<Part, String>("name"));
         partsPriceColumn.setCellValueFactory(new PropertyValueFactory<Part, Double>("price"));
         partsInventoryColumn.setCellValueFactory(new PropertyValueFactory<Part, Integer>("stock"));
 
 
-        //set the items on the table from the observable list
+        //set the items on the table from the observable list for parts
         partsTableView.setItems(allPartsList);
+
+        //sets the columns parts
+        productsIDColumn.setCellValueFactory(new PropertyValueFactory<Product, Integer>("id"));
+        productsNameColumn.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));
+        productsPriceColumn.setCellValueFactory(new PropertyValueFactory<Product, Double>("price"));
+        productsInventoryColumn.setCellValueFactory(new PropertyValueFactory<Product, Integer>("stock"));
+
+
+        //set the items on the table from the observable list for parts
+        productsTableView.setItems(allProductsList);
     }
 
 }

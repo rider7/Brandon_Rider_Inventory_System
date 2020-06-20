@@ -1,5 +1,8 @@
 package Inventory_System.Model;
 
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -9,71 +12,71 @@ public class Product {
     //- associatedParts:ObservableList<Part>
     private static ObservableList<Part> associatedParts = FXCollections.observableArrayList();
 
-    private int id;
-    private String name;
-    private double price;
-    private int stock;
-    private int min;
-    private int max;
+    private final SimpleIntegerProperty id;
+    private final SimpleStringProperty name;
+    private final SimpleDoubleProperty price;
+    private final SimpleIntegerProperty stock;
+    private final SimpleIntegerProperty min;
+    private final SimpleIntegerProperty max;
 
     //methods
 
 
     public Product(int id, String name, double price, int stock, int min, int max) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-        this.stock = stock;
-        this.min = min;
-        this.max = max;
+        this.id = new SimpleIntegerProperty(id);
+        this.name = new SimpleStringProperty(name);
+        this.price = new SimpleDoubleProperty(price);
+        this.stock = new SimpleIntegerProperty(stock);
+        this.min = new SimpleIntegerProperty(min);
+        this.max = new SimpleIntegerProperty(max);
     }
 
     public int getId() {
-        return id;
+        return id.get();
     }
 
     public void setId(int id) {
-        this.id = id;
+
     }
 
     public String getName() {
-        return name;
+        return name.get();
     }
 
     public void setName(String name) {
-        this.name = name;
+
     }
 
     public double getPrice() {
-        return price;
+        return price.get();
     }
 
     public void setPrice(double price) {
-        this.price = price;
+
     }
 
     public int getStock() {
-        return stock;
+        return stock.get();
     }
 
     public void setStock(int stock) {
-        this.stock = stock;
+
     }
 
     public int getMin() {
-        return min;
+        return min.get();
     }
 
     public void setMin(int min) {
-        this.min = min;
+
     }
 
     public int getMax() {
-        return max;
+        return max.get();
     }
 
     public void setMax(int max) {
-        this.max = max;
+
     }
 
     public void addAssociatedPart(Part part){

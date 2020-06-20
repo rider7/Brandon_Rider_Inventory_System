@@ -52,12 +52,12 @@
             </Pane>
             <Pane layoutX="561.0" layoutY="87.0" prefHeight="306.0" prefWidth="511.0" style="-fx-border-color: #999999; -fx-border-radius: 5px;">
                 <children>
-                    <TableView fx:id="productsTable" layoutX="15.0" layoutY="53.0" prefHeight="200.0" prefWidth="482.0">
+                    <TableView fx:id="productsTableView" layoutX="15.0" layoutY="53.0" prefHeight="200.0" prefWidth="482.0">
                         <columns>
-                            <TableColumn fx:id="productID" prefWidth="120.0" text="Product ID" />
-                            <TableColumn fx:id="productName" prefWidth="120.0" text="Product Name" />
-                            <TableColumn fx:id="productInventory" prefWidth="120.0" text="Inventory Level" />
-                            <TableColumn fx:id="productPrice" prefWidth="120.0" text="Price per Unit" />
+                            <TableColumn fx:id="productsIDColumn" prefWidth="120.0" text="Product ID" />
+                            <TableColumn fx:id="productsNameColumn" prefWidth="120.0" text="Product Name" />
+                            <TableColumn fx:id="productsInventoryColumn" prefWidth="120.0" text="Inventory Level" />
+                            <TableColumn fx:id="productsPriceColumn" prefWidth="120.0" text="Price per Unit" />
                         </columns>
                     </TableView>
                     <Label layoutX="25.0" layoutY="21.0" prefHeight="17.0" prefWidth="79.0" text="Products">

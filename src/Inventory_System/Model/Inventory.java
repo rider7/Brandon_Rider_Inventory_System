@@ -17,7 +17,9 @@ public class Inventory {
     );
 
     // - allProducts:ObservableList<Product>
-    private static ObservableList<Product> allProductsList = FXCollections.observableArrayList();
+    public static ObservableList<Product> allProductsList = FXCollections.observableArrayList(
+            new Product(1,"gaming desktop system",1200.00, 34, 1, 5)
+    );
 
     //methods
     public void addPart(Part newPart){
