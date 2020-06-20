@@ -5,25 +5,24 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 //class
-public abstract class Part {
+public class Part {
     //attributes
-    private SimpleIntegerProperty id;
-    private SimpleStringProperty name;
-    private SimpleDoubleProperty price;
-    private SimpleIntegerProperty stock;
-    private SimpleIntegerProperty min;
-    private SimpleIntegerProperty max;
+    private final SimpleIntegerProperty id;
+    private final SimpleStringProperty name;
+    private final SimpleDoubleProperty price;
+    private final SimpleIntegerProperty stock;
+    private final SimpleIntegerProperty min;
+    private final SimpleIntegerProperty max;
 
     // methods
-
-
+    //constructor
     public Part(int id, String name, double price, int stock, int min, int max) {
-        this.id = id;
-        this.name = name;
-        this.price = price;
-        this.stock = stock;
-        this.min = min;
-        this.max = max;
+        this.id = new SimpleIntegerProperty(id);
+        this.name = new SimpleStringProperty(name);
+        this.price = new SimpleDoubleProperty(price);
+        this.stock = new SimpleIntegerProperty(stock);
+        this.min = new SimpleIntegerProperty(min);
+        this.max = new SimpleIntegerProperty(max);
     }
 
     public void setId(int id){
@@ -51,26 +50,26 @@ public abstract class Part {
     }
 
     public int getId(){
-        return id;
+        return id.get();
     }
 
     public String getName(){
-        return name;
+        return name.get();
     }
 
     public double getPrice(){
-        return price;
+        return price.get();
     }
 
     public int getStock(){
-        return stock;
+        return stock.get();
     }
 
     public int getMin(){
-        return min;
+        return min.get();
     }
 
     public int getMax(){
-        return max;
+        return max.get();
     }
 }

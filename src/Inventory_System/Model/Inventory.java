@@ -9,12 +9,15 @@ public class Inventory {
 
     //attributes
     // - allParts:ObservableList<Part>
-    //ListView<Part> partListView = new ListView<Part>();
-    private static ObservableList<Part> allParts = FXCollections.observableArrayList();
+    public static ObservableList<Part> allPartsList = FXCollections.observableArrayList(
+            new Part(1,"monitor",30.00, 34, 1, 10),
+            new Part(2,"keyboard",10.00, 38, 1, 30),
+            new Part(3,"speaker",23.00, 78, 1, 50),
+            new Part(4,"mouse",12.00, 12, 1, 70)
+    );
 
     // - allProducts:ObservableList<Product>
-    //ListView<Product> productListView = new ListView<Product>();
-    private static ObservableList<Product> allProducts = FXCollections.observableArrayList();
+    private static ObservableList<Product> allProductsList = FXCollections.observableArrayList();
 
     //methods
     public void addPart(Part newPart){
