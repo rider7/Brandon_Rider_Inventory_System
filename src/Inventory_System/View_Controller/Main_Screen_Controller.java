@@ -3,6 +3,9 @@ package Inventory_System.View_Controller;
 import java.net.URL;
 import java.sql.SQLOutput;
 import java.util.ResourceBundle;
+
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -48,19 +51,19 @@ public class Main_Screen_Controller implements Initializable {
     private TableColumn<Part, Double> partsPriceColumn;
 
     @FXML
-    private Button addPartButton;
+    private Button addPartsButton;
 
     @FXML
-    private Button modifyPartButton;
+    private Button modifyPartsButton;
 
     @FXML
-    private Button partDeleteButton;
+    private Button partsDeleteButton;
 
     @FXML
-    private Button partSearchButton;
+    private Button partsSearchButton;
 
     @FXML
-    private TextField partSearchField;
+    private TextField partsSearchField;
 
     @FXML
     private TableView<Product> productsTableView;
@@ -78,19 +81,19 @@ public class Main_Screen_Controller implements Initializable {
     private TableColumn<Product, Double> productsPriceColumn;
 
     @FXML
-    private Button addProductButton;
+    private Button addProductsButton;
 
     @FXML
-    private Button productDeleteButton;
+    private Button productsDeleteButton;
 
     @FXML
-    private Button modifyProductButton;
+    private Button modifyProductsButton;
 
     @FXML
-    private Button productSearchButton;
+    private Button productsSearchButton;
 
     @FXML
-    private TextField productSearchField;
+    private TextField productsSearchField;
 
     @FXML
     private Button exitButton;
@@ -101,7 +104,7 @@ public class Main_Screen_Controller implements Initializable {
         Parent root = FXMLLoader.load(getClass().
                         getResource(
                                 "Add_Part.fxml"));
-                Stage stage = (Stage) addPartButton.getScene().getWindow();
+                Stage stage = (Stage) addPartsButton.getScene().getWindow();
                 Scene scene = new Scene(root);
                 stage.setScene(scene);
                 stage.show();
@@ -113,7 +116,7 @@ public class Main_Screen_Controller implements Initializable {
         Parent root = FXMLLoader.load(getClass().
                 getResource(
                         "Modify_Part.fxml"));
-        Stage stage = (Stage) modifyPartButton.getScene().getWindow();
+        Stage stage = (Stage) modifyPartsButton.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -125,7 +128,7 @@ public class Main_Screen_Controller implements Initializable {
         Parent root = FXMLLoader.load(getClass().
                 getResource(
                         "Add_Product.fxml"));
-        Stage stage = (Stage) addProductButton.getScene().getWindow();
+        Stage stage = (Stage) addProductsButton.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -137,11 +140,17 @@ public class Main_Screen_Controller implements Initializable {
         Parent root = FXMLLoader.load(getClass().
                 getResource(
                         "Modify_Product.fxml"));
-        Stage stage = (Stage) modifyProductButton.getScene().getWindow();
+        Stage stage = (Stage) modifyProductsButton.getScene().getWindow();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
+
+//    @FXML
+//    private void searchFunctionalityHandler(ActionEvent event){
+//        String data = partsSearchField.getText();
+//        for()
+//    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -154,6 +163,44 @@ public class Main_Screen_Controller implements Initializable {
 
         //set the items on the table from the observable list for parts
         partsTableView.setItems(allPartsList);
+
+        // 1. Wrap the ObservableList in a FilteredList (initially display all data).
+        FilteredList<Part> filteredData = new FilteredList<>(allPartsList, p -> true);
+
+        // 2. Set the filter Predicate whenever the filter changes.
+        partsSearchField.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(student -> {
+                // If filter text is empty, display all persons.
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+
+                // Compare first name and last name of every person with filter text.
+                String lowerCaseFilter = newValue.toLowerCase();
+
+
+                if (Part.getName().toLowerCase().contains(lowerCaseFilter)) {
+                    return true; // Filter matches first name.
+//                } else if (Part.getPrice()== newValue) {
+//                    return true; // Filter matches last name.
+//                } else if (Part.getId().toString().contains(lowerCaseFilter)) {
+//                    return true;
+//                } else if (Part.getStock().toString().contains(lowerCaseFilter)) {
+//                    return true;
+
+                }
+                return false; // Does not match.
+            });
+        });
+
+        // 3. Wrap the FilteredList in a SortedList.
+        SortedList<Part> sortedData = new SortedList<>(filteredData);
+
+        // 4. Bind the SortedList comparator to the TableView comparator.
+        sortedData.comparatorProperty().bind(partsTableView.comparatorProperty());
+
+        // 5. Add sorted (and filtered) data to the table.
+        partsTableView.setItems(sortedData);
 
         //sets the columns parts
         productsIDColumn.setCellValueFactory(new PropertyValueFactory<Product, Integer>("id"));
