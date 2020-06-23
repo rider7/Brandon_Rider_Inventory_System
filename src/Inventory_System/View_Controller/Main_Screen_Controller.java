@@ -170,18 +170,19 @@ public class Main_Screen_Controller implements Initializable {
         productsTableView.setItems(allProductsList);
     }
 
+    //Functionality for searching the Parts Table
     public void getResultsHandlerParts(ActionEvent actionEvent) {
         //get text user has entered in textfield
        // System.out.println("Search button event worked!");
-        String searchString = partsSearchField.getText();
+        String searchStringParts = partsSearchField.getText();
 
-        //create new observable list and set it to the output of searchByPart method after passing in q through loops
-        ObservableList<Part> filteredPartsList = searchByPartName(searchString);
+        //create new observable list and set it to the output of searchByPart method after passing in searchStringParts through loops
+        ObservableList<Part> filteredPartsList = searchByPartName(searchStringParts);
 
         //If search does not return part name then look for part id
         if(filteredPartsList.size()==0){
             try {
-                int id = Integer.parseInt(searchString);
+                int id = Integer.parseInt(searchStringParts);
                 Part searchPart = searchByPartID(id);
                 if (searchPart!= null) {
                     filteredPartsList.add(searchPart);
@@ -225,6 +226,68 @@ public class Main_Screen_Controller implements Initializable {
         //if the id is equal than return
             if(searchPart.getId() == id) {
                 return searchPart;
+            }
+        }
+        return null;
+    }
+
+    //Functionality for searching the Products Table
+
+    public void getResultsHandlerProducts(ActionEvent actionEvent) {
+        //get text user has entered in textfield
+        // System.out.println("Search button event worked!");
+        String searchStringProducts = productsSearchField.getText();
+
+        //create new observable list and set it to the output of searchByProduct method after passing in searchString through loops
+        ObservableList<Product> filteredProductsList = searchByProductName(searchStringProducts);
+
+        //If search does not return part name then look for part id
+        if(filteredProductsList.size()==0){
+            try {
+                int id = Integer.parseInt(searchStringProducts);
+                Product searchProduct = searchByProductID(id);
+                if (searchStringProducts!= null) {
+                    filteredProductsList.add(searchProduct);
+                }
+            }
+            catch(NumberFormatException e)
+            {
+                //ignore
+            }
+
+        }
+        productsTableView.setItems(filteredProductsList);
+
+    }
+
+    private ObservableList<Product> searchByProductName(String partialProduct){
+        //System.out.println("Search method ran!");
+        //ObservableList to return with filtered Products
+        ObservableList<Product> allProductsTempList =FXCollections.observableArrayList();
+
+        //List from Inventory to walk through finding filtered Products
+        ObservableList<Product> allProductsList = Product.getAllProducts();
+
+        //Enhanced loop through allPartsList using temporary variable searchPart
+        for(Product searchStringProducts : allProductsList){
+            if(searchStringProducts.getName().contains(partialProduct)){
+                allProductsTempList.add(searchStringProducts);
+                //System.out.println("If statement worked!");
+            }
+        }
+
+        return allProductsTempList;
+    }
+
+    private Product searchByProductID(int id){
+        //List from Inventory to walk through finding filtered Parts
+        ObservableList<Product> allProductsList = Product.getAllProducts();
+        //Loop through list as long as less than the list size
+        for(int i=0; i < allProductsList.size(); i++){
+            Product searchByProductID = allProductsList.get(i);
+            //if the id is equal than return
+            if(searchByProductID.getId() == id) {
+                return searchByProductID;
             }
         }
         return null;

@@ -6,6 +6,9 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import static Inventory_System.Model.Inventory.allPartsList;
+import static Inventory_System.Model.Inventory.allProductsList;
+
 //class
 public class Product {
     //attributes
@@ -81,6 +84,10 @@ public class Product {
 
     public void addAssociatedPart(Part part){
 
+    }
+
+    public static ObservableList<Product> getAllProducts(){
+        return allProductsList;
     }
 
 //    public boolean deleteAssociatedPart(Part selectedAssociatedPart){
