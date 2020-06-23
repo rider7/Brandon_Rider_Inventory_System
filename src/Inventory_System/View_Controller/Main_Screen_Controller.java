@@ -4,6 +4,8 @@ import java.net.URL;
 import java.sql.SQLOutput;
 import java.util.ResourceBundle;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
@@ -102,13 +104,13 @@ public class Main_Screen_Controller implements Initializable {
     private void addPartSceneHandler(ActionEvent event) throws IOException {
         //System.out.println("addPartButton Click Worked");
         Parent root = FXMLLoader.load(getClass().
-                        getResource(
-                                "Add_Part.fxml"));
-                Stage stage = (Stage) addPartsButton.getScene().getWindow();
-                Scene scene = new Scene(root);
-                stage.setScene(scene);
-                stage.show();
-        }
+                getResource(
+                        "Add_Part.fxml"));
+        Stage stage = (Stage) addPartsButton.getScene().getWindow();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 
     @FXML
     private void modifyPartSceneHandler(ActionEvent event) throws IOException {
@@ -146,12 +148,6 @@ public class Main_Screen_Controller implements Initializable {
         stage.show();
     }
 
-//    @FXML
-//    private void searchFunctionalityHandler(ActionEvent event){
-//        String data = partsSearchField.getText();
-//        for()
-//    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //sets the columns parts
@@ -160,47 +156,8 @@ public class Main_Screen_Controller implements Initializable {
         partsPriceColumn.setCellValueFactory(new PropertyValueFactory<Part, Double>("price"));
         partsInventoryColumn.setCellValueFactory(new PropertyValueFactory<Part, Integer>("stock"));
 
-
         //set the items on the table from the observable list for parts
         partsTableView.setItems(allPartsList);
-
-        // 1. Wrap the ObservableList in a FilteredList (initially display all data).
-        FilteredList<Part> filteredData = new FilteredList<>(allPartsList, p -> true);
-
-        // 2. Set the filter Predicate whenever the filter changes.
-        partsSearchField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(student -> {
-                // If filter text is empty, display all persons.
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-
-                // Compare first name and last name of every person with filter text.
-                String lowerCaseFilter = newValue.toLowerCase();
-
-
-                if (Part.getName().toLowerCase().contains(lowerCaseFilter)) {
-                    return true; // Filter matches first name.
-//                } else if (Part.getPrice()== newValue) {
-//                    return true; // Filter matches last name.
-//                } else if (Part.getId().toString().contains(lowerCaseFilter)) {
-//                    return true;
-//                } else if (Part.getStock().toString().contains(lowerCaseFilter)) {
-//                    return true;
-
-                }
-                return false; // Does not match.
-            });
-        });
-
-        // 3. Wrap the FilteredList in a SortedList.
-        SortedList<Part> sortedData = new SortedList<>(filteredData);
-
-        // 4. Bind the SortedList comparator to the TableView comparator.
-        sortedData.comparatorProperty().bind(partsTableView.comparatorProperty());
-
-        // 5. Add sorted (and filtered) data to the table.
-        partsTableView.setItems(sortedData);
 
         //sets the columns parts
         productsIDColumn.setCellValueFactory(new PropertyValueFactory<Product, Integer>("id"));
@@ -211,6 +168,66 @@ public class Main_Screen_Controller implements Initializable {
 
         //set the items on the table from the observable list for parts
         productsTableView.setItems(allProductsList);
+    }
+
+    public void getResultsHandlerParts(ActionEvent actionEvent) {
+        //get text user has entered in textfield
+       // System.out.println("Search button event worked!");
+        String searchString = partsSearchField.getText();
+
+        //create new observable list and set it to the output of searchByPart method after passing in q through loops
+        ObservableList<Part> filteredPartsList = searchByPartName(searchString);
+
+        //If search does not return part name then look for part id
+        if(filteredPartsList.size()==0){
+            try {
+                int id = Integer.parseInt(searchString);
+                Part searchPart = searchByPartID(id);
+                if (searchPart!= null) {
+                    filteredPartsList.add(searchPart);
+                }
+            }
+            catch(NumberFormatException e)
+                {
+                    //ignore
+                }
+
+        }
+        partsTableView.setItems(filteredPartsList);
+
+    }
+
+    private ObservableList<Part> searchByPartName(String partialPart){
+        //System.out.println("Search method ran!");
+        //ObservableList to return with filtered Parts
+        ObservableList<Part> allPartsTempList =FXCollections.observableArrayList();
+
+        //List from Inventory to walk through finding filtered Parts
+        ObservableList<Part> allPartsList = Part.getAllParts();
+
+        //Enhanced loop through allPartsList using temporary variable searchPart
+        for(Part searchPart : allPartsList){
+            if(searchPart.getName().contains(partialPart)){
+                allPartsTempList.add(searchPart);
+                //System.out.println("If statement worked!");
+            }
+        }
+
+        return allPartsTempList;
+}
+
+    private Part searchByPartID(int id){
+        //List from Inventory to walk through finding filtered Parts
+        ObservableList<Part> allPartsList = Part.getAllParts();
+        //Loop through list as long as less than the list size
+        for(int i=0; i < allPartsList.size(); i++){
+            Part searchPart = allPartsList.get(i);
+        //if the id is equal than return
+            if(searchPart.getId() == id) {
+                return searchPart;
+            }
+        }
+        return null;
     }
 
 }

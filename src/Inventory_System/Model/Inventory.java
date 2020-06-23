@@ -62,9 +62,9 @@ public class Inventory {
 //        return;
 //    }
 
-//    public ObservableList<Part> getAllParts(){
-//        return;
-//    }
+    public static ObservableList<Part> getAllParts(){
+        return allPartsList;
+    }
 
 //    public ObservableList<Product> getAllProducts(){
 //        return;

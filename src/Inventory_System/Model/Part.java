@@ -3,6 +3,9 @@ package Inventory_System.Model;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ObservableList;
+
+import static Inventory_System.Model.Inventory.allPartsList;
 
 //class
 public class Part {
@@ -71,5 +74,9 @@ public class Part {
 
     public int getMax(){
         return max.get();
+    }
+
+    public static ObservableList<Part> getAllParts(){
+        return allPartsList;
     }
 }
