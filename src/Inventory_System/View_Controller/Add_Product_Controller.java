@@ -30,6 +30,8 @@ public class Add_Product_Controller {
     private TextField productAddMax;
     @FXML
     private TextField productAddMin;
+    @FXML
+    private Button productSaveButton;
 
     //methods
     @FXML
@@ -46,7 +48,7 @@ public class Add_Product_Controller {
     }
 
     @FXML
-    private void productSaveButtonHandler(ActionEvent event) {
+    private void productSaveButtonHandler(ActionEvent event) throws IOException{
         // Grabs the last product ID used from the static variable productGlobalID and increments it by 1
         int incrementedProductID = Inventory.getProductGlobalID() + 1;
 
@@ -63,6 +65,16 @@ public class Add_Product_Controller {
         //Create new instance of the Product object based on data above
         Product productNew = new Product(incrementedProductID, productName, productPrice, productStock, productMin, productMax);
         Inventory.addProduct(productNew);
+
+        Stage stage;
+        Parent root;
+        stage = (Stage) productSaveButton.getScene().getWindow();
+        //load up OTHER FXML document
+        FXMLLoader loader = new FXMLLoader();
+        root = loader.load(getClass().getResource("Main_Screen.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
 
         }
 

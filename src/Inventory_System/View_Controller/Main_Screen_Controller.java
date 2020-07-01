@@ -359,7 +359,21 @@ public class Main_Screen_Controller implements Initializable {
 
     }
 
+    @FXML
+    private void partsDeleteButtonHandler(ActionEvent event) {
+        // Select the part
+        Part deleteSelectedPart = partsTableView.getSelectionModel().getSelectedItem();
+        //Delete the part
+        allPartsList.remove(deleteSelectedPart);
+        }
+
+    @FXML
+    private void productsDeleteButtonHandler(ActionEvent event) {
+        // Select the product
+        Product deleteSelectedProduct = productsTableView.getSelectionModel().getSelectedItem();
+        //Delete the part
+        allProductsList.remove(deleteSelectedProduct);
+    }
+    }
 
 
-
-}

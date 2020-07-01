@@ -12,7 +12,7 @@
             <Font name="Arial Bold" size="18.0" />
         </font>
     </Label>
-    <RadioButton fx:id="partInHouseOption" layoutX="195.0" layoutY="27.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="92.0" text="In-House">
+    <RadioButton fx:id="partInHouseOption" layoutX="195.0" layoutY="27.0" mnemonicParsing="false" onAction="#partInHouseOptionHandler" prefHeight="17.0" prefWidth="92.0" text="In-House">
         <opaqueInsets>
             <Insets />
         </opaqueInsets>
@@ -23,7 +23,7 @@
             <Font name="Arial" size="14.0" />
         </font>
     </RadioButton>
-    <RadioButton fx:id="partOutsourceOption" layoutX="355.0" layoutY="27.0" mnemonicParsing="false" text="Outsourced" toggleGroup="$partSourceOptions">
+    <RadioButton fx:id="partOutsourceOption" layoutX="355.0" layoutY="27.0" mnemonicParsing="false" onAction="#partOutsourceOptionHandler" text="Outsourced" toggleGroup="$partSourceOptions">
         <font>
             <Font name="Arial" size="14.0" />
         </font>
@@ -33,7 +33,7 @@
             <Font name="Arial" size="14.0" />
         </font>
     </Label>
-    <Label fx:id="altFieldLabel" layoutX="59.0" layoutY="371.0" prefHeight="21.0" prefWidth="106.0" text="Machine ID">
+    <Label fx:id="machineIDLabel" layoutX="59.0" layoutY="371.0" prefHeight="21.0" prefWidth="106.0" text="Machine ID">
         <font>
             <Font name="Arial" size="14.0" />
         </font>

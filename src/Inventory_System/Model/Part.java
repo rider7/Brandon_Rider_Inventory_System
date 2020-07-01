@@ -8,7 +8,7 @@ import javafx.collections.ObservableList;
 import static Inventory_System.Model.Inventory.allPartsList;
 
 //class
-public class Part {
+public abstract class Part {
     //attributes
     private SimpleIntegerProperty id;
     private SimpleStringProperty name;
