@@ -88,7 +88,7 @@
                     <TextField fx:id="productsSearchField" layoutX="336.0" layoutY="13.0" />
                 </children>
             </Pane>
-            <Button fx:id="exitButton" alignment="CENTER" contentDisplay="CENTER" layoutX="949.0" layoutY="413.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="100.0" text="Exit">
+            <Button fx:id="exitMainButton" alignment="CENTER" contentDisplay="CENTER" layoutX="949.0" layoutY="413.0" mnemonicParsing="false" onAction="#exitButtonEventHandler" prefHeight="36.0" prefWidth="100.0" text="Exit">
                 <opaqueInsets>
                     <Insets />
                 </opaqueInsets>

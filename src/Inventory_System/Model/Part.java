@@ -10,12 +10,12 @@ import static Inventory_System.Model.Inventory.allPartsList;
 //class
 public class Part {
     //attributes
-    private final SimpleIntegerProperty id;
-    private final SimpleStringProperty name;
-    private final SimpleDoubleProperty price;
-    private final SimpleIntegerProperty stock;
-    private final SimpleIntegerProperty min;
-    private final SimpleIntegerProperty max;
+    private SimpleIntegerProperty id;
+    private SimpleStringProperty name;
+    private SimpleDoubleProperty price;
+    private SimpleIntegerProperty stock;
+    private SimpleIntegerProperty min;
+    private SimpleIntegerProperty max;
 
     // methods
     //constructor
@@ -28,12 +28,13 @@ public class Part {
         this.max = new SimpleIntegerProperty(max);
     }
 
-    public void setId(int id){
 
+    public void setId(SimpleIntegerProperty id){
+        this.id = id;
     }
 
-    public void setName(String name){
-
+    public void setName(SimpleStringProperty name){
+        this.name = name;
     }
 
     public void setPrice(double price){

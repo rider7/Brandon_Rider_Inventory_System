@@ -8,6 +8,10 @@ import javafx.scene.control.ListView;
 public class Inventory {
 
     //attributes
+    //Global IDs used to create new parts and products...starting at five because of sample data
+    private static int partGlobalID = 4;
+    private static int productGlobalID = 4;
+
     // - allParts:ObservableList<Part>
     public static ObservableList<Part> allPartsList = FXCollections.observableArrayList(
             new Part(1,"Monitor",30.00, 34, 1, 10),
@@ -25,12 +29,14 @@ public class Inventory {
     );
 
     //methods
-    public void addPart(Part newPart){
-
+    //add a new Part to allPartList
+    public static void addPart(Part newPart){
+        allPartsList.add(newPart);
     }
 
-    public void addProduct(Product newProduct){
-
+    //add a new Product to the allProductsList
+    public static void addProduct(Product newProduct){
+        allProductsList.add(newProduct);
     }
 
 //    public Part lookupPart(int partId){
@@ -70,6 +76,22 @@ public class Inventory {
     }
 
     public static ObservableList<Product> getAllProducts(){ return allProductsList; }
+
+    //Method used to get the part global ID
+    public static int getPartGlobalID(){return partGlobalID;};
+
+    //Method used to set new global ID count after incrementing in part controller
+    public static void setPartGlobalID(int newCount) {
+        partGlobalID = newCount;
+    }
+
+    //Method used to get the product global ID
+    public static int getProductGlobalID(){return productGlobalID;}
+
+    //Method used to set new global ID count after incrementing in product controller
+    public static void setProductGlobalID(int newCount) {
+        productGlobalID = newCount;
+    }
 
 }
 

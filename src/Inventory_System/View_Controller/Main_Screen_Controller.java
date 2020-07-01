@@ -98,8 +98,27 @@ public class Main_Screen_Controller implements Initializable {
     private TextField productsSearchField;
 
     @FXML
-    private Button exitButton;
+    private Button exitMainButton;
 
+//    //Change scene to Add_Part.fmxl with populated data that is selected to Add Part
+//    @FXML
+//    private void addPartSceneHandler(ActionEvent event) throws IOException {
+//        Stage stage;
+//        Parent root;
+//        stage=(Stage) addPartsButton.getScene().getWindow();
+//        //load up OTHER FXML document
+//        FXMLLoader loader=new FXMLLoader(getClass().getResource(
+//                "Add_Part.fxml"));
+//        root =loader.load();
+//        Scene scene = new Scene(root);
+//        stage.setScene(scene);
+//        stage.show();
+//        Add_Part_Controller controller = loader.getController();
+//        Part part=partsTableView.getSelectionModel().getSelectedItem();
+//        controller.setPart(part);
+//    }
+
+//    //My original add scene handler before seeing the webinar
     @FXML
     private void addPartSceneHandler(ActionEvent event) throws IOException {
         //System.out.println("addPartButton Click Worked");
@@ -111,19 +130,38 @@ public class Main_Screen_Controller implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+    //Change scene to modify part scene
 
+    //Change scene to Modify_Part.fmxl with populated data that is selected to Add Part
     @FXML
     private void modifyPartSceneHandler(ActionEvent event) throws IOException {
-        //System.out.println("modifyPartButton Click Worked");
-        Parent root = FXMLLoader.load(getClass().
-                getResource(
-                        "Modify_Part.fxml"));
-        Stage stage = (Stage) modifyPartsButton.getScene().getWindow();
+        Stage stage;
+        Parent root;
+        stage=(Stage) modifyPartsButton.getScene().getWindow();
+        //load up OTHER FXML document
+        FXMLLoader loader=new FXMLLoader(getClass().getResource(
+                "Modify_Part.fxml"));
+        root =loader.load();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+        Modify_Part_Controller controller = loader.getController();
+        Part part=partsTableView.getSelectionModel().getSelectedItem();
+        controller.setPart(part);
     }
-
+//    My original modify part scene handler
+//    @FXML
+//    private void modifyPartSceneHandler(ActionEvent event) throws IOException {
+//        //System.out.println("modifyPartButton Click Worked");
+//        Parent root = FXMLLoader.load(getClass().
+//                getResource(
+//                        "Modify_Part.fxml"));
+//        Stage stage = (Stage) modifyPartsButton.getScene().getWindow();
+//        Scene scene = new Scene(root);
+//        stage.setScene(scene);
+//        stage.show();
+//    }
+    //Change scene to add product scene
     @FXML
     private void addProductSceneHandler(ActionEvent event) throws IOException {
         //System.out.println("addProductButton Click Worked");
@@ -136,18 +174,38 @@ public class Main_Screen_Controller implements Initializable {
         stage.show();
     }
 
+    //Change scene to modify product scene original code
+//    @FXML
+//    private void modifyProductSceneHandler(ActionEvent event) throws IOException {
+//        //System.out.println("modifyProductButton Click Worked");
+//        Parent root = FXMLLoader.load(getClass().
+//                getResource(
+//                        "Modify_Product.fxml"));
+//        Stage stage = (Stage) modifyProductsButton.getScene().getWindow();
+//        Scene scene = new Scene(root);
+//        stage.setScene(scene);
+//        stage.show();
+//    }
+
     @FXML
     private void modifyProductSceneHandler(ActionEvent event) throws IOException {
-        //System.out.println("modifyProductButton Click Worked");
-        Parent root = FXMLLoader.load(getClass().
-                getResource(
-                        "Modify_Product.fxml"));
-        Stage stage = (Stage) modifyProductsButton.getScene().getWindow();
+        Stage stage;
+        Parent root;
+        stage=(Stage) modifyProductsButton.getScene().getWindow();
+        //load up OTHER FXML document
+        FXMLLoader loader=new FXMLLoader(getClass().getResource(
+                "Modify_Product.fxml"));
+        root =loader.load();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+        Modify_Product_Controller controller = loader.getController();
+        Product product = productsTableView.getSelectionModel().getSelectedItem();
+        controller.setProduct(product);
     }
 
+
+    //Initialize and setup the table with data
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //sets the columns parts
@@ -157,7 +215,7 @@ public class Main_Screen_Controller implements Initializable {
         partsInventoryColumn.setCellValueFactory(new PropertyValueFactory<Part, Integer>("stock"));
 
         //set the items on the table from the observable list for parts
-        partsTableView.setItems(allPartsList);
+        partsTableView.setItems(Inventory.allPartsList);
 
         //sets the columns parts
         productsIDColumn.setCellValueFactory(new PropertyValueFactory<Product, Integer>("id"));
@@ -167,10 +225,10 @@ public class Main_Screen_Controller implements Initializable {
 
 
         //set the items on the table from the observable list for parts
-        productsTableView.setItems(allProductsList);
+        productsTableView.setItems(Inventory.allProductsList);
     }
 
-    //Functionality for searching the Parts Table
+    //Search Part functionality
     public void getResultsHandlerParts(ActionEvent actionEvent) {
         //get text user has entered in textfield
        // System.out.println("Search button event worked!");
@@ -208,7 +266,7 @@ public class Main_Screen_Controller implements Initializable {
 
         //Enhanced loop through allPartsList using temporary variable searchPart
         for(Part searchPart : allPartsList){
-            if(searchPart.getName().contains(partialPart)){
+            if(searchPart.getName().toLowerCase().contains(partialPart)){
                 allPartsTempList.add(searchPart);
                 //System.out.println("If statement worked!");
             }
@@ -231,7 +289,7 @@ public class Main_Screen_Controller implements Initializable {
         return null;
     }
 
-    //Functionality for searching the Products Table
+    //Search Product functionality
 
     public void getResultsHandlerProducts(ActionEvent actionEvent) {
         //get text user has entered in textfield
@@ -270,7 +328,7 @@ public class Main_Screen_Controller implements Initializable {
 
         //Enhanced loop through allPartsList using temporary variable searchPart
         for(Product searchStringProducts : allProductsList){
-            if(searchStringProducts.getName().contains(partialProduct)){
+            if(searchStringProducts.getName().toLowerCase().contains(partialProduct)){
                 allProductsTempList.add(searchStringProducts);
                 //System.out.println("If statement worked!");
             }
@@ -292,5 +350,16 @@ public class Main_Screen_Controller implements Initializable {
         }
         return null;
     }
+    @FXML
+    private void exitButtonEventHandler(ActionEvent event) {
+        // Creating Alert window and dialog
+            Stage stage = (Stage) exitMainButton.getScene().getWindow();
+            stage.close();
+
+
+    }
+
+
+
 
 }
