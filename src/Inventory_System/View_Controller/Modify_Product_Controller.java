@@ -40,6 +40,7 @@ public class Modify_Product_Controller {
         productModifyPrice.setText(new Double(product.getPrice()).toString());
         productModifyMin.setText(new Integer(product.getMin()).toString());
         productModifyMax.setText(new Integer(product.getMax()).toString());
+
     }
 
 

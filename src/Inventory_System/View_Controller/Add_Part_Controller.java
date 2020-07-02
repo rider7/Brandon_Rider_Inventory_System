@@ -48,12 +48,8 @@ public class Add_Part_Controller implements Initializable {
     private Button partCancelButton;
     @FXML
     private Button partSaveButton;
-
     Part part;
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO

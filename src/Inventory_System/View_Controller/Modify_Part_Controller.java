@@ -1,5 +1,6 @@
 package Inventory_System.View_Controller;
 
+import Inventory_System.Model.InHouse;
 import Inventory_System.Model.Part;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,8 +28,12 @@ public class Modify_Part_Controller {
     @FXML
     private TextField partModifyMin;
     @FXML
+    private TextField partModifyCompany;
+    @FXML
     private Button partCancelButton2;
+
     Part part;
+    InHouse inhouse;
 
     /**
      * Initializes the controller class.
@@ -51,13 +56,26 @@ public class Modify_Part_Controller {
         stage.show();
     }
     public void setPart(Part part) {
-        this.part = part;
+//        this.part = part;
+//
+//        partModifyName.setText(part.getName());
+//        partModifyStock.setText(new Integer(part.getStock()).toString());
+//        partModifyPrice.setText(new Double(part.getPrice()).toString());
+//        partModifyMin.setText(new Integer(part.getMin()).toString());
+//        partModifyMax.setText(new Integer(part.getMax()).toString());
+        //partModifyCompany.setText(new Integer(part.getPartCompanyName().toString());
 
-        partModifyName.setText(part.getName());
-        partModifyStock.setText(new Integer(part.getStock()).toString());
-        partModifyPrice.setText(new Double(part.getPrice()).toString());
-        partModifyMin.setText(new Integer(part.getMin()).toString());
-        partModifyMax.setText(new Integer(part.getMax()).toString());
+
+    }
+    public void setInHousePart(InHouse inhouse) {
+        this.inhouse = inhouse;
+
+        partModifyName.setText(inhouse.getName());
+        partModifyStock.setText(new Integer(inhouse.getStock()).toString());
+        partModifyPrice.setText(new Double(inhouse.getPrice()).toString());
+        partModifyMin.setText(new Integer(inhouse.getMin()).toString());
+        partModifyMax.setText(new Integer(inhouse.getMax()).toString());
+        partModifyCompany.setText(String.valueOf(inhouse.getPartMachineID()));
 
 
     }

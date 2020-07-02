@@ -4,6 +4,7 @@ import java.net.URL;
 import java.sql.SQLOutput;
 import java.util.ResourceBundle;
 
+import Inventory_System.Model.InHouse;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -33,6 +34,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import static Inventory_System.Model.Inventory.allPartsList;
 import static Inventory_System.Model.Inventory.allProductsList;
+
 
 
 public class Main_Screen_Controller implements Initializable {
@@ -145,9 +147,14 @@ public class Main_Screen_Controller implements Initializable {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+        //Original working code
+//        Modify_Part_Controller controller = loader.getController();
+//        Part part=partsTableView.getSelectionModel().getSelectedItem();
+//        controller.setPart(part);
+
         Modify_Part_Controller controller = loader.getController();
-        Part part=partsTableView.getSelectionModel().getSelectedItem();
-        controller.setPart(part);
+        InHouse inhouse= (InHouse) partsTableView.getSelectionModel().getSelectedItem();
+        controller.setInHousePart(inhouse);
     }
 //    My original modify part scene handler
 //    @FXML
