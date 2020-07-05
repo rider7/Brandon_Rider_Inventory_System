@@ -100,23 +100,28 @@ public class Main_Screen_Controller implements Initializable {
     @FXML
     private Button exitMainButton;
 
-//    //Change scene to Add_Part.fmxl with populated data that is selected to Add Part
-//    @FXML
-//    private void addPartSceneHandler(ActionEvent event) throws IOException {
-//        Stage stage;
-//        Parent root;
-//        stage=(Stage) addPartsButton.getScene().getWindow();
-//        //load up OTHER FXML document
-//        FXMLLoader loader=new FXMLLoader(getClass().getResource(
-//                "Add_Part.fxml"));
-//        root =loader.load();
-//        Scene scene = new Scene(root);
-//        stage.setScene(scene);
-//        stage.show();
-//        Add_Part_Controller controller = loader.getController();
-//        Part part=partsTableView.getSelectionModel().getSelectedItem();
-//        controller.setPart(part);
-//    }
+    //Initialize and setup the table with data
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        //sets the columns parts
+        partsIDColumn.setCellValueFactory(new PropertyValueFactory<Part, Integer>("id"));
+        partsNameColumn.setCellValueFactory(new PropertyValueFactory<Part, String>("name"));
+        partsPriceColumn.setCellValueFactory(new PropertyValueFactory<Part, Double>("price"));
+        partsInventoryColumn.setCellValueFactory(new PropertyValueFactory<Part, Integer>("stock"));
+
+        //set the items on the table from the observable list for parts
+        partsTableView.setItems(Inventory.allPartsList);
+
+        //sets the columns parts
+        productsIDColumn.setCellValueFactory(new PropertyValueFactory<Product, Integer>("id"));
+        productsNameColumn.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));
+        productsPriceColumn.setCellValueFactory(new PropertyValueFactory<Product, Double>("price"));
+        productsInventoryColumn.setCellValueFactory(new PropertyValueFactory<Product, Integer>("stock"));
+
+
+        //set the items on the table from the observable list for parts
+        productsTableView.setItems(Inventory.allProductsList);
+    }
 
 //    //My original add scene handler before seeing the webinar
     @FXML
@@ -216,28 +221,7 @@ public class Main_Screen_Controller implements Initializable {
     }
 
 
-    //Initialize and setup the table with data
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        //sets the columns parts
-        partsIDColumn.setCellValueFactory(new PropertyValueFactory<Part, Integer>("id"));
-        partsNameColumn.setCellValueFactory(new PropertyValueFactory<Part, String>("name"));
-        partsPriceColumn.setCellValueFactory(new PropertyValueFactory<Part, Double>("price"));
-        partsInventoryColumn.setCellValueFactory(new PropertyValueFactory<Part, Integer>("stock"));
 
-        //set the items on the table from the observable list for parts
-        partsTableView.setItems(Inventory.allPartsList);
-
-        //sets the columns parts
-        productsIDColumn.setCellValueFactory(new PropertyValueFactory<Product, Integer>("id"));
-        productsNameColumn.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));
-        productsPriceColumn.setCellValueFactory(new PropertyValueFactory<Product, Double>("price"));
-        productsInventoryColumn.setCellValueFactory(new PropertyValueFactory<Product, Integer>("stock"));
-
-
-        //set the items on the table from the observable list for parts
-        productsTableView.setItems(Inventory.allProductsList);
-    }
 
     //Search Part functionality
     public void getResultsHandlerParts(ActionEvent actionEvent) {

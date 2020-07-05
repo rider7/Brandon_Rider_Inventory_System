@@ -9,12 +9,12 @@
 <children>
     <Pane layoutX="19.0" layoutY="12.0" prefHeight="708.0" prefWidth="1233.0" style="-fx-border-color: #999999; -fx-border-radius: 5px;">
         <children>
-            <TableView fx:id="productPartsTable" layoutX="724.0" layoutY="357.0" prefHeight="200.0" prefWidth="482.0">
+            <TableView fx:id="productPartsTableView2" layoutX="724.0" layoutY="357.0" prefHeight="200.0" prefWidth="482.0">
                 <columns>
-                    <TableColumn fx:id="productPartID" prefWidth="120.0" text="Part ID" />
-                    <TableColumn fx:id="productPartName" prefWidth="120.0" text="Part Name" />
-                    <TableColumn fx:id="productPartStock" prefWidth="120.0" text="Inventory Level" />
-                    <TableColumn fx:id="productPartPrice" prefWidth="120.0" text="Price per Unit" />
+                    <TableColumn fx:id="productPartIDColumn2" prefWidth="120.0" text="Part ID" />
+                    <TableColumn fx:id="productPartNameColumn2" prefWidth="120.0" text="Part Name" />
+                    <TableColumn fx:id="productInventoryLevelColumn2" prefWidth="120.0" text="Inventory Level" />
+                    <TableColumn fx:id="productPriceColumn2" prefWidth="120.0" text="Price per Unit" />
                 </columns>
             </TableView>
             <Text fill="#140b94" layoutX="45.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Modify Product" wrappingWidth="342.98828125">
@@ -22,12 +22,12 @@
                     <Font name="Arial" size="20.0" />
                 </font>
             </Text>
-            <TableView fx:id="partsTable" layoutX="724.0" layoutY="92.0" prefHeight="200.0" prefWidth="482.0">
+            <TableView fx:id="productPartsTableView" layoutX="724.0" layoutY="92.0" prefHeight="200.0" prefWidth="482.0">
                 <columns>
-                    <TableColumn fx:id="productPartID" prefWidth="120.0" text="Part ID" />
-                    <TableColumn fx:id="partName" prefWidth="120.0" text="Part Name" />
-                    <TableColumn fx:id="partInventory" prefWidth="120.0" text="Inventory Level" />
-                    <TableColumn fx:id="partPrice" prefWidth="120.0" text="Price/Cost per Unit" />
+                    <TableColumn fx:id="productPartIDColumn" prefWidth="120.0" text="Part ID" />
+                    <TableColumn fx:id="productPartNameColumn" prefWidth="120.0" text="Part Name" />
+                    <TableColumn fx:id="productInventoryLevelColumn" prefWidth="120.0" text="Inventory Level" />
+                    <TableColumn fx:id="productPriceColumn" prefWidth="120.0" text="Price per Unit" />
                 </columns>
             </TableView>
             <Button fx:id="addButton" alignment="CENTER" contentDisplay="CENTER" layoutX="1084.0" layoutY="305.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="100.0" text="Add">

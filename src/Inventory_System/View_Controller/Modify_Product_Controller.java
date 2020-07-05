@@ -4,17 +4,48 @@ import Inventory_System.Model.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class Modify_Product_Controller {
+public class Modify_Product_Controller implements Initializable {
 
     //attributes
+    //table 1
+    @FXML
+    private TableView<Product> productPartsTableView;
+    @FXML
+    private TableColumn<Product, Integer> productPartIDColumn;
+    @FXML
+    private TableColumn<Product, String> productPartNameColumn;
+    @FXML
+    private TableColumn<Product, Double> productPriceColumn;
+    @FXML
+    private TableColumn<Product, Integer> productInventoryLevelColumn;
+
+    //table 2
+    @FXML
+    private TableView<Product> productPartsTableView2;
+    @FXML
+    private TableColumn<Product, Integer> productPartIDColumn2;
+    @FXML
+    private TableColumn<Product, String> productPartNameColumn2;
+    @FXML
+    private TableColumn<Product, Double> productPriceColumn2;
+    @FXML
+    private TableColumn<Product, Integer> productInventoryLevelColumn2;
+
+    //text fields
     @FXML
     private TextField productModifyID;
     @FXML
@@ -27,12 +58,36 @@ public class Modify_Product_Controller {
     private TextField productModifyMax;
     @FXML
     private TextField productModifyMin;
+
+    //buttons
     @FXML
     private Button productCancelButton2;
     @FXML
     private Button productSaveButton2;
 
     Product product;
+
+    //Initialize and setup the table with data
+
+    public void initialize(URL location, ResourceBundle resources) {
+        //sets the columns parts
+        productPartIDColumn.setCellValueFactory(new PropertyValueFactory<Product, Integer>("id"));
+        productPartNameColumn.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));
+        productPriceColumn.setCellValueFactory(new PropertyValueFactory<Product, Double>("price"));
+        productInventoryLevelColumn.setCellValueFactory(new PropertyValueFactory<Product, Integer>("stock"));
+
+        //set the items on the table from the observable list for parts
+        productPartsTableView.setItems(Inventory.allProductsList);
+
+        //sets the columns parts
+        productPartIDColumn2.setCellValueFactory(new PropertyValueFactory<Product, Integer>("id"));
+        productPartNameColumn2.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));
+        productPriceColumn2.setCellValueFactory(new PropertyValueFactory<Product, Double>("price"));
+        productInventoryLevelColumn2.setCellValueFactory(new PropertyValueFactory<Product, Integer>("stock"));
+
+        //set the items on the table from the observable list for parts
+        productPartsTableView2.setItems(Inventory.allProductsList);
+    }
 
     public void setProduct(Product product) {
         this.product = product;

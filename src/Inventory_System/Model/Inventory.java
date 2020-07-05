@@ -39,13 +39,13 @@ public class Inventory {
         allProductsList.add(newProduct);
     }
 
-//    public Part lookupPart(int partId){
-//        return
-//    }
+    public Part lookupPart(int partId){
+        return allPartsList.get(partId);
+    }
 
-//    public Product lookupProduct(int productId){
-//        return
-//    }
+    public Product lookupProduct(int productId){
+        return allProductsList.get(productId);
+    }
 
 //    public ObservableList<Part> lookupPart(String partName){
 //        return
