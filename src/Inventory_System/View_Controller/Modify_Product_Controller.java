@@ -25,15 +25,15 @@ public class Modify_Product_Controller implements Initializable {
     //attributes
     //table 1
     @FXML
-    private TableView<Product> productPartsTableView;
+    private TableView<Part> productPartsTableView;
     @FXML
-    private TableColumn<Product, Integer> productPartIDColumn;
+    private TableColumn<Part, Integer> productPartIDColumn;
     @FXML
-    private TableColumn<Product, String> productPartNameColumn;
+    private TableColumn<Part, String> productPartNameColumn;
     @FXML
-    private TableColumn<Product, Double> productPriceColumn;
+    private TableColumn<Part, Double> productPriceColumn;
     @FXML
-    private TableColumn<Product, Integer> productInventoryLevelColumn;
+    private TableColumn<Part, Integer> productInventoryLevelColumn;
 
     //table 2
     @FXML
@@ -77,13 +77,13 @@ public class Modify_Product_Controller implements Initializable {
 
     public void initialize(URL location, ResourceBundle resources) {
         //sets the columns parts
-        productPartIDColumn.setCellValueFactory(new PropertyValueFactory<Product, Integer>("id"));
-        productPartNameColumn.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));
-        productPriceColumn.setCellValueFactory(new PropertyValueFactory<Product, Double>("price"));
-        productInventoryLevelColumn.setCellValueFactory(new PropertyValueFactory<Product, Integer>("stock"));
+        productPartIDColumn.setCellValueFactory(new PropertyValueFactory<Part, Integer>("id"));
+        productPartNameColumn.setCellValueFactory(new PropertyValueFactory<Part, String>("name"));
+        productPriceColumn.setCellValueFactory(new PropertyValueFactory<Part, Double>("price"));
+        productInventoryLevelColumn.setCellValueFactory(new PropertyValueFactory<Part, Integer>("stock"));
 
         //set the items on the table from the observable list for parts
-        productPartsTableView.setItems(Inventory.allProductsList);
+        productPartsTableView.setItems(Inventory.allPartsList);
 
         //sets the columns parts
         productPartIDColumn2.setCellValueFactory(new PropertyValueFactory<Product, Integer>("id"));
