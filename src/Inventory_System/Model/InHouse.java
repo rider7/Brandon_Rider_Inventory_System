@@ -12,7 +12,7 @@ public class InHouse extends Part{
     public InHouse(int id, String name, double price, int stock, int min, int max, int machineID) {
         super(id, name, price, stock, min, max);
 
-        partMachineID = new SimpleIntegerProperty();
+        this.partMachineID = new SimpleIntegerProperty(machineID);
     }
 
     //Setter
@@ -22,8 +22,10 @@ public class InHouse extends Part{
 
     //Getter
     public int getPartMachineID() {
+        //System.out.println(this.partMachineID.get());
         return this.partMachineID.get();
     }
+
 }
 
 
