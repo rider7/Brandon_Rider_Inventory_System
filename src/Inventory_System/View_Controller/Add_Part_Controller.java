@@ -53,7 +53,7 @@ public class Add_Part_Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        partInHouseOption.setSelected(true);
+        //partInHouseOption.setSelected(true);
     }
 
     @FXML
@@ -119,15 +119,15 @@ public class Add_Part_Controller implements Initializable {
         if (optionSelected == partInHouseOption) {
             //parse companyName String to partMachineID int
             int partMachineID = Integer.parseInt(partCompanyName);
-            System.out.println("InHouse");
-            System.out.println(partCompanyName);
-            System.out.println(partMachineID);
+            //System.out.println("InHouse");
+            //System.out.println(partCompanyName);
+            //System.out.println(partMachineID);
             InHouse partNew = new InHouse(incrementedPartID, partName, partPrice, partStock, partMin, partMax, partMachineID);
             Inventory.addPart(partNew);
 
         } else {
-            System.out.println("Outsourced");
-            System.out.println(partCompanyName);
+            //System.out.println("Outsourced");
+            //System.out.println(partCompanyName);
             Outsourced partNew = new Outsourced(incrementedPartID, partName, partPrice, partStock, partMin, partMax, partCompanyName);
             Inventory.addPart(partNew);
 

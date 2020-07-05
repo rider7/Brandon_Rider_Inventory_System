@@ -17,7 +17,7 @@ public class Inventory {
             new InHouse(1,"Monitor",30.00, 34, 1, 10, 1),
             new InHouse(2,"Keyboard",10.00, 38, 1, 30, 2),
             new InHouse(3,"Speaker",23.00, 78, 1, 50, 3),
-            new InHouse(4,"Mouse",12.00, 12, 1, 70,4)
+            new Outsourced(4,"Mouse",12.00, 12, 1, 70,"test")
     );
 
     // - allProducts:ObservableList<Product>

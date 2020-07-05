@@ -4,7 +4,7 @@ import java.net.URL;
 import java.sql.SQLOutput;
 import java.util.ResourceBundle;
 
-import Inventory_System.Model.InHouse;
+import Inventory_System.Model.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -16,9 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import Inventory_System.Model.Inventory;
-import Inventory_System.Model.Product;
-import Inventory_System.Model.Part;
+
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -147,14 +145,20 @@ public class Main_Screen_Controller implements Initializable {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-        //Original working code
-//        Modify_Part_Controller controller = loader.getController();
-//        Part part=partsTableView.getSelectionModel().getSelectedItem();
-//        controller.setPart(part);
 
-        Modify_Part_Controller controller = loader.getController();
-        InHouse inhouse= (InHouse) partsTableView.getSelectionModel().getSelectedItem();
-        controller.setInHousePart(inhouse);
+        //if statement to determine if it is a inhouse or outsourced part using instanceof
+        if(partsTableView.getSelectionModel().getSelectedItem() instanceof InHouse){
+            Modify_Part_Controller controller = loader.getController();
+            InHouse inhouse= (InHouse) partsTableView.getSelectionModel().getSelectedItem();
+            controller.setInHousePart(inhouse);
+
+        }
+        else{
+            //System.out.println("Outsourced Modify");
+            Modify_Part_Controller controller = loader.getController();
+            Outsourced outsourced= (Outsourced) partsTableView.getSelectionModel().getSelectedItem();
+            controller.setOutsourcedPart(outsourced);
+        }
     }
 //    My original modify part scene handler
 //    @FXML

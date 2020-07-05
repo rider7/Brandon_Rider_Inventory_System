@@ -37,20 +37,20 @@ public abstract class Part {
         this.name = name;
     }
 
-    public void setPrice(double price){
-
+    public void setPrice(SimpleDoubleProperty price){
+        this.price = price;
     }
 
-    public void setStock(int stock){
-
+    public void setStock(SimpleIntegerProperty stock){
+        this.stock = stock;
     }
 
-    public void setMin(int min){
-
+    public void setMin(SimpleIntegerProperty min){
+        this.min = min;
     }
 
-    public void setMax(int max){
-
+    public void setMax(SimpleIntegerProperty max){
+        this.max = max;
     }
 
     public  int getId(){
