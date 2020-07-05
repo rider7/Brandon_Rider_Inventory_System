@@ -55,8 +55,8 @@ public class Inventory {
 //        return
 //    }
 
-    public void updatePart(int index, Part selectedPart){
-
+    public static void updatePart(Part selectedPart){
+        allPartsList.set(selectedPart.getId()-1, selectedPart);
     }
 
     public void updateProduct(int index, Product newProduct){

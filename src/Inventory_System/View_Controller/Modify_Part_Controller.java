@@ -1,6 +1,7 @@
 package Inventory_System.View_Controller;
 
 import Inventory_System.Model.InHouse;
+import Inventory_System.Model.Inventory;
 import Inventory_System.Model.Outsourced;
 import Inventory_System.Model.Part;
 import javafx.event.ActionEvent;
@@ -21,6 +22,8 @@ import java.util.ResourceBundle;
 public class Modify_Part_Controller {
 
     @FXML
+    private TextField partModifyID;
+    @FXML
     private TextField partModifyName;
     @FXML
     private TextField partModifyStock;
@@ -40,6 +43,10 @@ public class Modify_Part_Controller {
     private RadioButton partOutsourceOption;
     @FXML
     private Button partCancelButton2;
+    @FXML
+    private Button partSaveButton2;
+
+
 
     Part part;
     InHouse inhouse;
@@ -85,6 +92,7 @@ public class Modify_Part_Controller {
     public void setInHousePart(InHouse inhouse) {
         this.inhouse = inhouse;
 
+        partModifyID.setText(new Integer(inhouse.getId()).toString());
         partModifyName.setText(inhouse.getName());
         partModifyStock.setText(new Integer(inhouse.getStock()).toString());
         partModifyPrice.setText(new Double(inhouse.getPrice()).toString());
@@ -99,6 +107,7 @@ public class Modify_Part_Controller {
     public void setOutsourcedPart(Outsourced outsourced) {
         this.outsourced = outsourced;
 
+        partModifyID.setText(new Integer(outsourced.getId()).toString());
         partModifyName.setText(outsourced.getName());
         partModifyStock.setText(new Integer(outsourced.getStock()).toString());
         partModifyPrice.setText(new Double(outsourced.getPrice()).toString());
@@ -108,5 +117,42 @@ public class Modify_Part_Controller {
 
         machineIDLabel.setText("Company Name");
         partOutsourceOption.setSelected(true);
+    }
+
+    public void partSaveHandler(ActionEvent event) throws IOException{
+//if statement to check for inhouse or outsourced
+
+        //use add part as example
+        int partID = Integer.parseInt(partModifyID.getText());
+        String partName = partModifyName.getText();
+        int partStock = Integer.parseInt(partModifyStock.getText());
+        double partPrice = Double.parseDouble(partModifyPrice.getText());
+        int partMax = Integer.parseInt(partModifyMax.getText());
+        int partMin = Integer.parseInt(partModifyMin.getText());
+        //used for Company Name and Machine ID
+        String partCompanyName = partModifyCompany.getText();
+
+        //outsourced modify part using updatePart method in Inventory
+        if (this.machineIDLabel.getText().equals("Company Name")) {
+            //System.out.println("outsourced modify part if statement");
+            Outsourced partOutsourced = new Outsourced(partID, partName, partPrice, partStock, partMin, partMax, partCompanyName);
+            Inventory.updatePart(partOutsourced);
+
+            //inhouse modify part using updatePart method in Inventory
+        } else{
+            //System.out.println("inhouse modify part if statement");
+            int partMachineID = Integer.parseInt(partCompanyName);
+            InHouse partInHouse = new InHouse(partID, partName, partPrice, partStock, partMin, partMax, partMachineID);
+            Inventory.updatePart(partInHouse);
+        }
+        Stage stage;
+        Parent root;
+        stage = (Stage) partSaveButton2.getScene().getWindow();
+        //load up OTHER FXML document
+        FXMLLoader loader = new FXMLLoader();
+        root = loader.load(getClass().getResource("Main_Screen.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 }
