@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static Inventory_System.Model.Inventory.allProductsList;
+
 public class Modify_Product_Controller implements Initializable {
 
     //attributes
@@ -64,6 +66,10 @@ public class Modify_Product_Controller implements Initializable {
     private Button productCancelButton2;
     @FXML
     private Button productSaveButton2;
+    @FXML
+    private Button productsPartsDeleteButton;
+    @FXML
+    private Button addProductsButton2;
 
     Product product;
 
@@ -139,4 +145,26 @@ public class Modify_Product_Controller implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    //delete products handler
+    @FXML
+    private void productsPartsDeleteButtonHandler(ActionEvent event){
+        // Select the product
+        Product deleteSelectedProduct = productPartsTableView2.getSelectionModel().getSelectedItem();
+        //Delete the part
+        allProductsList.remove(deleteSelectedProduct);
+    }
+
+//    private void addProductsButtonHandler2(ActionEvent event) throws IOException{
+//        //go to product add scene
+//        Stage stage;
+//        Parent root;
+//        stage = (Stage) addProductsButton2.getScene().getWindow();
+//        //load up OTHER FXML document
+//        FXMLLoader loader = new FXMLLoader();
+//        root = loader.load(getClass().getResource("Add_Product.fxml"));
+//        Scene scene = new Scene(root);
+//        stage.setScene(scene);
+//        stage.show();
+//    }
 }
