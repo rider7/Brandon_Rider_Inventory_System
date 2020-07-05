@@ -51,7 +51,7 @@
                     <Insets />
                 </opaqueInsets>
             </Button>
-            <Button fx:id="saveButton" alignment="CENTER" contentDisplay="CENTER" layoutX="962.0" layoutY="648.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="100.0" text="Save">
+            <Button fx:id="productSaveButton2" alignment="CENTER" contentDisplay="CENTER" layoutX="962.0" layoutY="648.0" mnemonicParsing="false" onAction="#productSaveHandler" prefHeight="36.0" prefWidth="100.0" text="Save">
                 <opaqueInsets>
                     <Insets />
                 </opaqueInsets>
@@ -103,7 +103,7 @@
                             <Font name="Arial Italic" size="14.0" />
                         </font>
                     </TextField>
-                    <TextField fx:id="id" disable="true" editable="false" layoutX="170.0" layoutY="90.0" prefHeight="42.0" prefWidth="195.0" text="Auto Gen - Disabled">
+                    <TextField fx:id="productModifyID" disable="true" editable="false" layoutX="170.0" layoutY="90.0" prefHeight="42.0" prefWidth="195.0" text="Auto Gen - Disabled">
                         <font>
                             <Font name="System Italic" size="14.0" />
                         </font>

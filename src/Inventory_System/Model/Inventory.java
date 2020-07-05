@@ -59,8 +59,8 @@ public class Inventory {
         allPartsList.set(selectedPart.getId()-1, selectedPart);
     }
 
-    public void updateProduct(int index, Product newProduct){
-
+    public static void updateProduct(Product selectedProduct){
+        allProductsList.set(selectedProduct.getId()-1, selectedProduct);
     }
 
 //    public boolean deletePart(Part selectedPart){

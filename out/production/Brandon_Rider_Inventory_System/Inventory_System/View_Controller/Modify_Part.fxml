@@ -98,7 +98,7 @@
             <Font name="Arial Italic" size="14.0" />
         </font>
     </TextField>
-    <Button fx:id="partSaveButton" layoutX="298.0" layoutY="422.0" mnemonicParsing="false" onAction="#partSaveHandler" prefHeight="42.0" prefWidth="83.0" text="Save" />
+    <Button fx:id="partSaveButton2" layoutX="298.0" layoutY="422.0" mnemonicParsing="false" onAction="#partSaveHandler" prefHeight="42.0" prefWidth="83.0" text="Save" />
     <Button fx:id="partCancelButton2" layoutX="407.0" layoutY="422.0" mnemonicParsing="false" onAction="#partBackButtonHandler2" prefHeight="42.0" prefWidth="83.0" text="Cancel" />
 </children>
 </AnchorPane>
