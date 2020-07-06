@@ -95,6 +95,6 @@ public class Product {
 //    public boolean deleteAssociatedPart(Part selectedAssociatedPart){
 //
 //    }
-        //+ getAllAssociatedParts():ObservableList<Part>
+    public ObservableList getAllAssociatedParts() {return this.associatedParts;}
 
 }

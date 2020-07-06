@@ -30,7 +30,7 @@
                     <TableColumn fx:id="productPriceColumn" prefWidth="120.0" text="Price per Unit" />
                 </columns>
             </TableView>
-            <Button fx:id="addProductsButton2" alignment="CENTER" contentDisplay="CENTER" layoutX="1084.0" layoutY="305.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="100.0" text="Add">
+            <Button fx:id="addProductsButton2" alignment="CENTER" contentDisplay="CENTER" layoutX="1084.0" layoutY="305.0" mnemonicParsing="false" onAction="#addAssociatedPartHandler2" prefHeight="36.0" prefWidth="100.0" text="Add">
                 <opaqueInsets>
                     <Insets />
                 </opaqueInsets>

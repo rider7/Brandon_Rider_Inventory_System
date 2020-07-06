@@ -66,8 +66,12 @@ public class Add_Product_Controller implements Initializable {
     @FXML
     private TableColumn<Product, Integer> productInventoryLevelColumn2;
 
+    private Product product;
+
     //methods
     public void initialize(URL location, ResourceBundle resources) {
+        //create new instance of Product with default values
+        product = new Product(0,"Product Name Here",0.00,0,0,0);
         //sets the columns parts
         productPartIDColumn.setCellValueFactory(new PropertyValueFactory<Part, Integer>("id"));
         productPartNameColumn.setCellValueFactory(new PropertyValueFactory<Part, String>("name"));
@@ -77,14 +81,14 @@ public class Add_Product_Controller implements Initializable {
         //set the items on the table from the observable list for parts
         productPartsTableView.setItems(Inventory.getAllParts());
 
-//        //sets the columns parts
-//        productPartIDColumn2.setCellValueFactory(new PropertyValueFactory<Product, Integer>("id"));
-//        productPartNameColumn2.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));
-//        productPriceColumn2.setCellValueFactory(new PropertyValueFactory<Product, Double>("price"));
-//        productInventoryLevelColumn2.setCellValueFactory(new PropertyValueFactory<Product, Integer>("stock"));
-//
-//        //set the items on the table from the observable list for parts
-//        productPartsTableView2.setItems(Inventory.allProductsList);
+        //sets the columns parts
+        productPartIDColumn2.setCellValueFactory(new PropertyValueFactory<Product, Integer>("id"));
+        productPartNameColumn2.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));
+        productPriceColumn2.setCellValueFactory(new PropertyValueFactory<Product, Double>("price"));
+        productInventoryLevelColumn2.setCellValueFactory(new PropertyValueFactory<Product, Integer>("stock"));
+
+        //set the items on the table from the observable list for parts
+        productPartsTableView2.setItems(product.getAllAssociatedParts());
     }
     @FXML
     private void productBackButtonHandler(ActionEvent event) throws IOException {
@@ -191,6 +195,14 @@ public class Add_Product_Controller implements Initializable {
         return null;
     }
 
+    //add a part to the associated array for a specific product
+    @FXML
+    private void addAssociatedPartHandler(ActionEvent event)    {
+        //Get the selected item for the associated part
+        Part selectedItem = productPartsTableView.getSelectionModel().getSelectedItem();
+        //Add the part to the part associated array for this instance
+        this.product.addAssociatedPart(selectedItem);
+    }
 
 
 }

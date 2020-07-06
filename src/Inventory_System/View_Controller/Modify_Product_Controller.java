@@ -82,6 +82,7 @@ public class Modify_Product_Controller implements Initializable {
     //Initialize and setup the table with data
 
     public void initialize(URL location, ResourceBundle resources) {
+
         //sets the columns parts
         productPartIDColumn.setCellValueFactory(new PropertyValueFactory<Part, Integer>("id"));
         productPartNameColumn.setCellValueFactory(new PropertyValueFactory<Part, String>("name"));
@@ -91,14 +92,14 @@ public class Modify_Product_Controller implements Initializable {
         //set the items on the table from the observable list for parts
         productPartsTableView.setItems(Inventory.getAllParts());
 
-//        //sets the columns parts
-//        productPartIDColumn2.setCellValueFactory(new PropertyValueFactory<Product, Integer>("id"));
-//        productPartNameColumn2.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));
-//        productPriceColumn2.setCellValueFactory(new PropertyValueFactory<Product, Double>("price"));
-//        productInventoryLevelColumn2.setCellValueFactory(new PropertyValueFactory<Product, Integer>("stock"));
-//
-//        //set the items on the table from the observable list for parts
-//        productPartsTableView2.setItems(Inventory.allProductsList);
+        //sets the columns parts
+        productPartIDColumn2.setCellValueFactory(new PropertyValueFactory<Product, Integer>("id"));
+        productPartNameColumn2.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));
+        productPriceColumn2.setCellValueFactory(new PropertyValueFactory<Product, Double>("price"));
+        productInventoryLevelColumn2.setCellValueFactory(new PropertyValueFactory<Product, Integer>("stock"));
+
+        //set the items on the table from the observable list for parts
+        productPartsTableView2.setItems(productPartsTableView2.getSelectionModel().getSelectedItem().getAssociatedParts());
     }
 
     public void setProduct(Product product) {
@@ -221,16 +222,11 @@ public class Modify_Product_Controller implements Initializable {
         return null;
     }
 
-//    private void addProductsButtonHandler2(ActionEvent event) throws IOException{
-//        //go to product add scene
-//        Stage stage;
-//        Parent root;
-//        stage = (Stage) addProductsButton2.getScene().getWindow();
-//        //load up OTHER FXML document
-//        FXMLLoader loader = new FXMLLoader();
-//        root = loader.load(getClass().getResource("Add_Product.fxml"));
-//        Scene scene = new Scene(root);
-//        stage.setScene(scene);
-//        stage.show();
-//    }
+    @FXML
+    private void addAssociatedPartHandler2(ActionEvent event)    {
+        //Get the selected item for the associated part
+        Part selectedItem = productPartsTableView.getSelectionModel().getSelectedItem();
+        //Add the part to the part associated array for this instance
+        this.product.addAssociatedPart(selectedItem);
+    }
 }
