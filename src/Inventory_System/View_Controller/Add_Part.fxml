@@ -5,11 +5,11 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AddPartMain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="491.0" prefWidth="543.0" style="-fx-background-color: #c0c0c0;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Inventory_System.View_Controller.Add_Part_Controller">
+<AnchorPane id="AddPartMainAnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="491.0" prefWidth="543.0" style="-fx-background-color: #c0c0c0;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Inventory_System.View_Controller.Add_Part_Controller">
 <children>
-    <Label layoutX="31.0" layoutY="25.0" prefHeight="17.0" prefWidth="92.0" text="Add Part" textFill="#1c12e4">
+    <Label layoutX="31.0" layoutY="25.0" prefHeight="17.0" prefWidth="92.0" text="Add Part" textFill="#126be3">
         <font>
-            <Font name="Arial Bold" size="18.0" />
+            <Font name="Arial Bold" size="17.0" />
         </font>
     </Label>
     <RadioButton fx:id="partInHouseOption" layoutX="195.0" layoutY="27.0" mnemonicParsing="false" onAction="#partInHouseOptionHandler" prefHeight="17.0" prefWidth="92.0" text="In-House">

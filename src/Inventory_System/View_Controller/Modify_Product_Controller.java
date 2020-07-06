@@ -82,7 +82,8 @@ public class Modify_Product_Controller implements Initializable {
     //Initialize and setup the table with data
 
     public void initialize(URL location, ResourceBundle resources) {
-
+        //create new instance of Product with default values
+        product = new Product(0,"Product Name Here",0.00,0,0,0);
 
         //sets the columns parts
         productPartIDColumn.setCellValueFactory(new PropertyValueFactory<Part, Integer>("id"));
@@ -100,8 +101,7 @@ public class Modify_Product_Controller implements Initializable {
         productInventoryLevelColumn2.setCellValueFactory(new PropertyValueFactory<Part, Integer>("stock"));
 
         //set the items on the table from the observable list for parts
-        //productPartsTableView2.setItems(productPartsTableView2.getSelectionModel().getSelectedItem().getAssociatedParts());
-        productPartsTableView.setItems(Inventory.getAllParts());
+        productPartsTableView2.setItems(product.getAllAssociatedParts());
         //productPartsTableView2.setItems(productPartsTableView2.getSelectionModel().getSelectedItem().getAssociatedParts());
     }
 
