@@ -2,7 +2,6 @@ package Inventory_System.Model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.ListView;
 
 //class
 public class Inventory {
@@ -63,13 +62,15 @@ public class Inventory {
         allProductsList.set(selectedProduct.getId()-1, selectedProduct);
     }
 
-//    public boolean deletePart(Part selectedPart){
-//        return;
-//    }
+    public static boolean deletePart(Part selectedPart){
+        allPartsList.remove(selectedPart);
+        return true;
+    }
 
-//    public boolean deleteProduct(Product selectedProduct){
-//        return;
-//    }
+    public static boolean deleteProduct(Product selectedProduct){
+        allProductsList.remove(selectedProduct);
+        return true;
+    }
 
     public static ObservableList<Part> getAllParts(){
         return allPartsList;

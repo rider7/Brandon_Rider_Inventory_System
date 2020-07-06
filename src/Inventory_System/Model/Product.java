@@ -12,7 +12,6 @@ import static Inventory_System.Model.Inventory.allProductsList;
 //class
 public class Product {
     //attributes
-    //- associatedParts:ObservableList<Part>
     private static ObservableList<Part> associatedParts = FXCollections.observableArrayList();
 
     private final SimpleIntegerProperty id;
@@ -82,8 +81,11 @@ public class Product {
 
     }
 
-    public void addAssociatedPart(Part part){
-
+    public ObservableList<Part> getAssociatedParts(){
+        return this.associatedParts;
+    }
+    public void addAssociatedPart(Part associatedPart){
+        this.associatedParts.add(associatedPart);
     }
 
     public static ObservableList<Product> getAllProducts(){

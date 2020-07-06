@@ -1,6 +1,8 @@
 package Inventory_System.View_Controller;
 
 import Inventory_System.Model.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -60,6 +62,8 @@ public class Modify_Product_Controller implements Initializable {
     private TextField productModifyMax;
     @FXML
     private TextField productModifyMin;
+    @FXML
+    private TextField partsSearchField;
 
     //buttons
     @FXML
@@ -70,6 +74,8 @@ public class Modify_Product_Controller implements Initializable {
     private Button productsPartsDeleteButton;
     @FXML
     private Button addProductsButton2;
+    @FXML
+    private Button partsSearchFieldButton;
 
     Product product;
 
@@ -83,16 +89,16 @@ public class Modify_Product_Controller implements Initializable {
         productInventoryLevelColumn.setCellValueFactory(new PropertyValueFactory<Part, Integer>("stock"));
 
         //set the items on the table from the observable list for parts
-        productPartsTableView.setItems(Inventory.allPartsList);
+        productPartsTableView.setItems(Inventory.getAllParts());
 
-        //sets the columns parts
-        productPartIDColumn2.setCellValueFactory(new PropertyValueFactory<Product, Integer>("id"));
-        productPartNameColumn2.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));
-        productPriceColumn2.setCellValueFactory(new PropertyValueFactory<Product, Double>("price"));
-        productInventoryLevelColumn2.setCellValueFactory(new PropertyValueFactory<Product, Integer>("stock"));
-
-        //set the items on the table from the observable list for parts
-        productPartsTableView2.setItems(Inventory.allProductsList);
+//        //sets the columns parts
+//        productPartIDColumn2.setCellValueFactory(new PropertyValueFactory<Product, Integer>("id"));
+//        productPartNameColumn2.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));
+//        productPriceColumn2.setCellValueFactory(new PropertyValueFactory<Product, Double>("price"));
+//        productInventoryLevelColumn2.setCellValueFactory(new PropertyValueFactory<Product, Integer>("stock"));
+//
+//        //set the items on the table from the observable list for parts
+//        productPartsTableView2.setItems(Inventory.allProductsList);
     }
 
     public void setProduct(Product product) {
@@ -153,6 +159,66 @@ public class Modify_Product_Controller implements Initializable {
         Product deleteSelectedProduct = productPartsTableView2.getSelectionModel().getSelectedItem();
         //Delete the part
         allProductsList.remove(deleteSelectedProduct);
+    }
+
+    //main search functionality
+    public void getResultsHandlerParts(ActionEvent actionEvent) {
+        //get text user has entered in textfield
+        String searchStringParts = partsSearchField.getText();
+
+        //create new observable list and set it to the output of searchByPart method after passing in searchStringParts through loops
+        ObservableList<Part> filteredPartsList = searchByPartName(searchStringParts);
+
+        //If search does not return part name then look for part id
+        if(filteredPartsList.size()==0){
+            try {
+                int id = Integer.parseInt(searchStringParts);
+                Part searchPart = searchByPartID(id);
+                if (searchPart!= null) {
+                    filteredPartsList.add(searchPart);
+                }
+            }
+            catch(NumberFormatException e)
+            {
+                //ignore
+            }
+
+        }
+        productPartsTableView.setItems(filteredPartsList);
+
+    }
+    //search by part name
+    private ObservableList<Part> searchByPartName(String partialPart){
+        //System.out.println("Search method ran!");
+        //ObservableList to return with filtered Parts
+        ObservableList<Part> allPartsTempList = FXCollections.observableArrayList();
+
+        //List from Inventory to walk through finding filtered Parts
+        ObservableList<Part> allPartsList = Part.getAllParts();
+
+        //Enhanced loop through allPartsList using temporary variable searchPart
+        for(Part searchPart : allPartsList){
+            if(searchPart.getName().toLowerCase().contains(partialPart)){
+                allPartsTempList.add(searchPart);
+                //System.out.println("If statement worked!");
+            }
+        }
+
+        return allPartsTempList;
+    }
+    //search by part ID
+    private Part searchByPartID(int id){
+        //List from Inventory to walk through finding filtered Parts
+        ObservableList<Part> allPartsList = Part.getAllParts();
+        //Loop through list as long as less than the list size
+        for(int i=0; i < allPartsList.size(); i++){
+            Part searchPart = allPartsList.get(i);
+            //if the id is equal than return
+            if(searchPart.getId() == id) {
+                return searchPart;
+            }
+        }
+        return null;
     }
 
 //    private void addProductsButtonHandler2(ActionEvent event) throws IOException{

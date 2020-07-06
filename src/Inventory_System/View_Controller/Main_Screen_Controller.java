@@ -110,7 +110,7 @@ public class Main_Screen_Controller implements Initializable {
         partsInventoryColumn.setCellValueFactory(new PropertyValueFactory<Part, Integer>("stock"));
 
         //set the items on the table from the observable list for parts
-        partsTableView.setItems(Inventory.allPartsList);
+        partsTableView.setItems(Inventory.getAllParts());
 
         //sets the columns parts
         productsIDColumn.setCellValueFactory(new PropertyValueFactory<Product, Integer>("id"));
@@ -120,7 +120,7 @@ public class Main_Screen_Controller implements Initializable {
 
 
         //set the items on the table from the observable list for parts
-        productsTableView.setItems(Inventory.allProductsList);
+        productsTableView.setItems(Inventory.getAllProducts());
     }
 
 //    //My original add scene handler before seeing the webinar
@@ -165,18 +165,7 @@ public class Main_Screen_Controller implements Initializable {
             controller.setOutsourcedPart(outsourced);
         }
     }
-//    My original modify part scene handler
-//    @FXML
-//    private void modifyPartSceneHandler(ActionEvent event) throws IOException {
-//        //System.out.println("modifyPartButton Click Worked");
-//        Parent root = FXMLLoader.load(getClass().
-//                getResource(
-//                        "Modify_Part.fxml"));
-//        Stage stage = (Stage) modifyPartsButton.getScene().getWindow();
-//        Scene scene = new Scene(root);
-//        stage.setScene(scene);
-//        stage.show();
-//    }
+
     //Change scene to add product scene
     @FXML
     private void addProductSceneHandler(ActionEvent event) throws IOException {
@@ -189,19 +178,6 @@ public class Main_Screen_Controller implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-
-    //Change scene to modify product scene original code
-//    @FXML
-//    private void modifyProductSceneHandler(ActionEvent event) throws IOException {
-//        //System.out.println("modifyProductButton Click Worked");
-//        Parent root = FXMLLoader.load(getClass().
-//                getResource(
-//                        "Modify_Product.fxml"));
-//        Stage stage = (Stage) modifyProductsButton.getScene().getWindow();
-//        Scene scene = new Scene(root);
-//        stage.setScene(scene);
-//        stage.show();
-//    }
 
     @FXML
     private void modifyProductSceneHandler(ActionEvent event) throws IOException {
@@ -219,8 +195,6 @@ public class Main_Screen_Controller implements Initializable {
         Product product = productsTableView.getSelectionModel().getSelectedItem();
         controller.setProduct(product);
     }
-
-
 
 
     //Search Part functionality
@@ -359,7 +333,8 @@ public class Main_Screen_Controller implements Initializable {
         // Select the part
         Part deleteSelectedPart = partsTableView.getSelectionModel().getSelectedItem();
         //Delete the part
-        allPartsList.remove(deleteSelectedPart);
+        //allPartsList.remove(deleteSelectedPart);
+        Inventory.deletePart(deleteSelectedPart);
         }
 
     @FXML
@@ -367,7 +342,8 @@ public class Main_Screen_Controller implements Initializable {
         // Select the product
         Product deleteSelectedProduct = productsTableView.getSelectionModel().getSelectedItem();
         //Delete the part
-        allProductsList.remove(deleteSelectedProduct);
+        //allProductsList.remove(deleteSelectedProduct);
+        Inventory.deleteProduct(deleteSelectedProduct);
     }
     }
 
