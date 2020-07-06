@@ -12,7 +12,11 @@ import static Inventory_System.Model.Inventory.allProductsList;
 //class
 public class Product {
     //attributes
-    private static ObservableList<Part> associatedParts = FXCollections.observableArrayList();
+    private static ObservableList<Part> associatedParts = FXCollections.observableArrayList(
+            new InHouse(3,"Speaker",23.00, 78, 1, 50, 3),
+            new Outsourced(4,"Mouse",12.00, 12, 1, 70,"test")
+    );
+
 
     private final SimpleIntegerProperty id;
     private final SimpleStringProperty name;
@@ -92,9 +96,11 @@ public class Product {
         return allProductsList;
     }
 
-//    public boolean deleteAssociatedPart(Part selectedAssociatedPart){
-//
-//    }
+    public boolean deleteAssociatedPart(Part part){
+        this.associatedParts.remove(part);
+        return true;
+
+    }
     public ObservableList getAllAssociatedParts() {return this.associatedParts;}
 
 }

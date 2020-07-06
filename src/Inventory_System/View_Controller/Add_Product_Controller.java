@@ -56,15 +56,15 @@ public class Add_Product_Controller implements Initializable {
 
     //table 2
     @FXML
-    private TableView<Product> productPartsTableView2;
+    private TableView<Part> productPartsTableView2;
     @FXML
-    private TableColumn<Product, Integer> productPartIDColumn2;
+    private TableColumn<Part, Integer> productPartIDColumn2;
     @FXML
-    private TableColumn<Product, String> productPartNameColumn2;
+    private TableColumn<Part, String> productPartNameColumn2;
     @FXML
-    private TableColumn<Product, Double> productPriceColumn2;
+    private TableColumn<Part, Double> productPriceColumn2;
     @FXML
-    private TableColumn<Product, Integer> productInventoryLevelColumn2;
+    private TableColumn<Part, Integer> productInventoryLevelColumn2;
 
     private Product product;
 
@@ -82,10 +82,10 @@ public class Add_Product_Controller implements Initializable {
         productPartsTableView.setItems(Inventory.getAllParts());
 
         //sets the columns parts
-        productPartIDColumn2.setCellValueFactory(new PropertyValueFactory<Product, Integer>("id"));
-        productPartNameColumn2.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));
-        productPriceColumn2.setCellValueFactory(new PropertyValueFactory<Product, Double>("price"));
-        productInventoryLevelColumn2.setCellValueFactory(new PropertyValueFactory<Product, Integer>("stock"));
+        productPartIDColumn2.setCellValueFactory(new PropertyValueFactory<Part, Integer>("id"));
+        productPartNameColumn2.setCellValueFactory(new PropertyValueFactory<Part, String>("name"));
+        productPriceColumn2.setCellValueFactory(new PropertyValueFactory<Part, Double>("price"));
+        productInventoryLevelColumn2.setCellValueFactory(new PropertyValueFactory<Part, Integer>("stock"));
 
         //set the items on the table from the observable list for parts
         productPartsTableView2.setItems(product.getAllAssociatedParts());
@@ -204,5 +204,13 @@ public class Add_Product_Controller implements Initializable {
         this.product.addAssociatedPart(selectedItem);
     }
 
+    //delete products handler
+    @FXML
+    private void productsPartsDeleteButtonHandler(ActionEvent event){
+        // Select the product
+        Part deleteSelectedAssociatedPart = productPartsTableView2.getSelectionModel().getSelectedItem();
+        //Delete the part
+        this.product.deleteAssociatedPart(deleteSelectedAssociatedPart);
+    }
 
 }
