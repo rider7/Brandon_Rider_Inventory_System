@@ -100,6 +100,13 @@ public class Main_Screen_Controller implements Initializable {
     @FXML
     private Button exitMainButton;
 
+    private static int selPart;
+    private static int selProduct;
+
+    //methods
+    public static int selectedPart(){return selPart;}
+    public static int selectedProduct(){return selProduct;}
+
     //Initialize and setup the table with data
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -322,28 +329,64 @@ public class Main_Screen_Controller implements Initializable {
     @FXML
     private void exitButtonEventHandler(ActionEvent event) {
         // Creating Alert window and dialog
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Exit Application");
+        alert.setContentText("Are you sure you want to exit the application?");
+
+        //Exit confirm button options
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
             Stage stage = (Stage) exitMainButton.getScene().getWindow();
             stage.close();
+        } else {
+            // If they click Cancel they return to the application
+        }
+
 
 
     }
 
     @FXML
     private void partsDeleteButtonHandler(ActionEvent event) {
+        // Creating Alert window and dialog
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Delete Part");
+        alert.setContentText("Are you sure you want to delete the selected part?");
+
+        //Delete confirm button options
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
         // Select the part
         Part deleteSelectedPart = partsTableView.getSelectionModel().getSelectedItem();
         //Delete the part
         //allPartsList.remove(deleteSelectedPart);
         Inventory.deletePart(deleteSelectedPart);
+        } else {
+            // If they click Cancel they return to the application
+        }
         }
 
     @FXML
     private void productsDeleteButtonHandler(ActionEvent event) {
+        // Creating Alert window and dialog
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Delete Product");
+        alert.setContentText("Are you sure you want to delete the selected product?");
+
+        //Delete confirm button options
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
         // Select the product
         Product deleteSelectedProduct = productsTableView.getSelectionModel().getSelectedItem();
         //Delete the part
         //allProductsList.remove(deleteSelectedProduct);
         Inventory.deleteProduct(deleteSelectedProduct);
+        } else {
+            // If they click Cancel they return to the application
+        }
     }
     }
 

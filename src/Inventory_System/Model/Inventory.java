@@ -38,12 +38,12 @@ public class Inventory {
         allProductsList.add(newProduct);
     }
 
-    public Part lookupPart(int partId){
+    public static Part lookupPart(int partId){
         return allPartsList.get(partId);
     }
 
-    public Product lookupProduct(int productId){
-        return allProductsList.get(productId);
+    public static Product lookupProduct(int productId){
+        return (Product)allProductsList.get(productId);
     }
 
 //    public ObservableList<Part> lookupPart(String partName){

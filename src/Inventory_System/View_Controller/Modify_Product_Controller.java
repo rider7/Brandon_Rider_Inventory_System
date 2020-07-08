@@ -9,15 +9,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static Inventory_System.Model.Inventory.allProductsList;
@@ -77,7 +75,8 @@ public class Modify_Product_Controller implements Initializable {
     @FXML
     private Button partsSearchFieldButton;
 
-    Product product;
+    private Product product;
+    private Product modifyProduct;
 
     //Initialize and setup the table with data
 
@@ -94,15 +93,38 @@ public class Modify_Product_Controller implements Initializable {
         //set the items on the table from the observable list for parts
         productPartsTableView.setItems(Inventory.getAllParts());
 
-        //sets the columns parts
-        productPartIDColumn2.setCellValueFactory(new PropertyValueFactory<Part, Integer>("id"));
-        productPartNameColumn2.setCellValueFactory(new PropertyValueFactory<Part, String>("name"));
-        productPriceColumn2.setCellValueFactory(new PropertyValueFactory<Part, Double>("price"));
-        productInventoryLevelColumn2.setCellValueFactory(new PropertyValueFactory<Part, Integer>("stock"));
+//        //sets the columns parts
+//        productPartIDColumn2.setCellValueFactory(new PropertyValueFactory<Part, Integer>("id"));
+//        productPartNameColumn2.setCellValueFactory(new PropertyValueFactory<Part, String>("name"));
+//        productPriceColumn2.setCellValueFactory(new PropertyValueFactory<Part, Double>("price"));
+//        productInventoryLevelColumn2.setCellValueFactory(new PropertyValueFactory<Part, Integer>("stock"));
+//
+//        //set the items on the table from the observable list for parts
+//        productPartsTableView2.setItems(product.getAllAssociatedParts());
+//        //productPartsTableView2.setItems(productPartsTableView2.getSelectionModel().getSelectedItem().getAssociatedParts());
 
-        //set the items on the table from the observable list for parts
-        productPartsTableView2.setItems(product.getAllAssociatedParts());
-        //productPartsTableView2.setItems(productPartsTableView2.getSelectionModel().getSelectedItem().getAssociatedParts());
+        this.modifyProduct= Inventory.lookupProduct(Main_Screen_Controller.selectedProduct());
+        this.productModifyID.setText(Integer.toString(this.modifyProduct.getId()));
+        this.productModifyName.setText(this.modifyProduct.getName());
+        this.productModifyStock.setText(Integer.toString(this.modifyProduct.getStock()));
+        this.productModifyPrice.setText(Double.toString(this.modifyProduct.getPrice()));
+        this.productModifyMin.setText(Integer.toString(this.modifyProduct.getMin()));
+        this.productModifyMax.setText(Integer.toString(this.modifyProduct.getMax()));
+
+        this.productPartIDColumn2.setCellValueFactory((cellData) -> {
+            return (cellData.getValue()).getIdProp().asObject();
+        });
+        this.productPartNameColumn2.setCellValueFactory((cellData) -> {
+            return (cellData.getValue()).getNameProp();
+        });
+        this.productInventoryLevelColumn2.setCellValueFactory((cellData) -> {
+            return (cellData.getValue()).getStockProp().asObject();
+        });
+        this.productPriceColumn2.setCellValueFactory((cellData) -> {
+            return (cellData.getValue()).getPriceProp().asObject();
+        });
+        this.productPartsTableView2.setItems(this.modifyProduct.getAssociatedParts());
+
     }
 
     public void setProduct(Product product) {
@@ -120,15 +142,28 @@ public class Modify_Product_Controller implements Initializable {
 
     @FXML
     private void productBackButtonHandler2(ActionEvent event) throws IOException {
-        Stage stage;
-        Parent root;
-        stage=(Stage) productCancelButton2.getScene().getWindow();
-        //load up OTHER FXML document
-        FXMLLoader loader=new FXMLLoader();
-        root = loader.load(getClass().getResource("Main_Screen.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        // Creating Alert window and dialog
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Cancel Product Modification");
+        alert.setContentText("Are you sure you want to cancel the Product modification?");
+
+        //Delete confirm button options
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            Stage stage;
+            Parent root;
+            stage=(Stage) productCancelButton2.getScene().getWindow();
+            //load up OTHER FXML document
+            FXMLLoader loader=new FXMLLoader();
+            root = loader.load(getClass().getResource("Main_Screen.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } else {
+            // If they click Cancel they return to the application
+        }
+
     }
 
     public void productSaveHandler(ActionEvent event) throws IOException{
@@ -144,25 +179,49 @@ public class Modify_Product_Controller implements Initializable {
             //System.out.println("modify product save handler");
             Product product = new Product(productID, productName, productPrice, productStock, productMin, productMax);
             Inventory.updateProduct(product);
+        if(product.checkForErrors() == 0){
+            Stage stage;
+            Parent root;
+            stage = (Stage) productSaveButton2.getScene().getWindow();
+            //load up OTHER FXML document
+            FXMLLoader loader = new FXMLLoader();
+            root = loader.load(getClass().getResource("Main_Screen.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } else{
+            //User alert
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Data Entry Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Min value should be less than Max value. Please update values appropriately and click Save.");
+            alert.showAndWait();
+        }
 
-        Stage stage;
-        Parent root;
-        stage = (Stage) productSaveButton2.getScene().getWindow();
-        //load up OTHER FXML document
-        FXMLLoader loader = new FXMLLoader();
-        root = loader.load(getClass().getResource("Main_Screen.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+
     }
 
     //delete products handler
     @FXML
     private void productsPartsDeleteButtonHandler(ActionEvent event){
-        // Select the product
-        Part deleteSelectedAssociatedPart = productPartsTableView2.getSelectionModel().getSelectedItem();
-        //Delete the part
-        this.product.deleteAssociatedPart(deleteSelectedAssociatedPart);
+        // Creating Alert window and dialog
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Delete Part From Product");
+        alert.setContentText("Are you sure you want to delete the selected Part from the Product?");
+
+        //Delete confirm button options
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            // Select the product
+            Part deleteSelectedAssociatedPart = productPartsTableView2.getSelectionModel().getSelectedItem();
+            //Delete the part
+            this.product.deleteAssociatedPart(deleteSelectedAssociatedPart);
+        } else {
+            // If they click Cancel they return to the application
+        }
+
+
     }
 
     //main search functionality

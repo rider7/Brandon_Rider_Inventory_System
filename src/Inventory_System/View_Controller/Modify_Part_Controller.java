@@ -9,10 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -54,16 +51,10 @@ public class Modify_Part_Controller {
 
 
     public void initialize(URL url, ResourceBundle rb) {
-        //if instance of then set option by checking if the text is a String object which would be a company name
+
 
     }
-//    public void setPartRadioOption() {
-//        if (partModifyCompany.getText() instanceof String) {
-//            partOutsourceOption.setSelected(true);
-//        } else {
-//            partInHouseOption.setSelected(true);
-//        }
-//    }
+
 
     @FXML
     private void partBackButtonHandler2(ActionEvent event) throws IOException {
@@ -137,6 +128,25 @@ public class Modify_Part_Controller {
             //System.out.println("outsourced modify part if statement");
             Outsourced partOutsourced = new Outsourced(partID, partName, partPrice, partStock, partMin, partMax, partCompanyName);
             Inventory.updatePart(partOutsourced);
+            //Check for errors and allow them to fix errors if Min value less than Max value
+            if(partOutsourced.checkForErrors() == 0){
+                Stage stage;
+                Parent root;
+                stage = (Stage) partSaveButton2.getScene().getWindow();
+                //load up OTHER FXML document
+                FXMLLoader loader = new FXMLLoader();
+                root = loader.load(getClass().getResource("Main_Screen.fxml"));
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            } else{
+                //User alert
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Data Entry Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Min value should be less than Max value. Please update values appropriately and click Save.");
+                alert.showAndWait();
+            }
 
             //inhouse modify part using updatePart method in Inventory
         } else{
@@ -144,15 +154,25 @@ public class Modify_Part_Controller {
             int partMachineID = Integer.parseInt(partCompanyName);
             InHouse partInHouse = new InHouse(partID, partName, partPrice, partStock, partMin, partMax, partMachineID);
             Inventory.updatePart(partInHouse);
+            if(partInHouse.checkForErrors() == 0){
+                Stage stage;
+                Parent root;
+                stage = (Stage) partSaveButton2.getScene().getWindow();
+                //load up OTHER FXML document
+                FXMLLoader loader = new FXMLLoader();
+                root = loader.load(getClass().getResource("Main_Screen.fxml"));
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            } else{
+                //User alert
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Data Entry Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Min value should be less than Max value. Please update values appropriately and click Save.");
+                alert.showAndWait();
+            }
         }
-        Stage stage;
-        Parent root;
-        stage = (Stage) partSaveButton2.getScene().getWindow();
-        //load up OTHER FXML document
-        FXMLLoader loader = new FXMLLoader();
-        root = loader.load(getClass().getResource("Main_Screen.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+
     }
 }

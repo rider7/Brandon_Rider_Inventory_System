@@ -1,9 +1,6 @@
 package Inventory_System.View_Controller;
 
-import Inventory_System.Model.Inventory;
-import Inventory_System.Model.Outsourced;
-import Inventory_System.Model.Part;
-import Inventory_System.Model.InHouse;
+import Inventory_System.Model.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,6 +13,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import static Inventory_System.Model.Inventory.allPartsList;
@@ -58,15 +56,28 @@ public class Add_Part_Controller implements Initializable {
 
     @FXML
     private void partBackButtonHandler(ActionEvent event) throws IOException {
-        Stage stage;
-        Parent root;
-        stage = (Stage) partCancelButton.getScene().getWindow();
-        //load up OTHER FXML document
-        FXMLLoader loader = new FXMLLoader();
-        root = loader.load(getClass().getResource("Main_Screen.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        // Creating Alert window and dialog
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Cancel Adding Part");
+        alert.setContentText("Are you sure you want to cancel before adding the selected Part?");
+
+        //Delete confirm button options
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            Stage stage;
+            Parent root;
+            stage = (Stage) partCancelButton.getScene().getWindow();
+            //load up OTHER FXML document
+            FXMLLoader loader = new FXMLLoader();
+            root = loader.load(getClass().getResource("Main_Screen.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } else {
+            // If they click Cancel they return to the application
+        }
+
     }
 
     public void setPart(Part part) {
@@ -124,6 +135,25 @@ public class Add_Part_Controller implements Initializable {
             //System.out.println(partMachineID);
             InHouse partNew = new InHouse(incrementedPartID, partName, partPrice, partStock, partMin, partMax, partMachineID);
             Inventory.addPart(partNew);
+            //Check for errors and allow them to fix errors if Min value less than Max value
+            if(partNew.checkForErrors() == 0){
+                Stage stage;
+                Parent root;
+                stage = (Stage) partSaveButton.getScene().getWindow();
+                //load up OTHER FXML document
+                FXMLLoader loader = new FXMLLoader();
+                root = loader.load(getClass().getResource("Main_Screen.fxml"));
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            } else{
+                //User alert
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Data Entry Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Min value should be less than Max value. Please update values appropriately and click Save.");
+                alert.showAndWait();
+            }
 
         } else {
             //System.out.println("Outsourced");
@@ -131,18 +161,28 @@ public class Add_Part_Controller implements Initializable {
             Outsourced partNew = new Outsourced(incrementedPartID, partName, partPrice, partStock, partMin, partMax, partCompanyName);
             Inventory.addPart(partNew);
 
-//        }
+            if(partNew.checkForErrors() == 0){
+                Stage stage;
+                Parent root;
+                stage = (Stage) partSaveButton.getScene().getWindow();
+                //load up OTHER FXML document
+                FXMLLoader loader = new FXMLLoader();
+                root = loader.load(getClass().getResource("Main_Screen.fxml"));
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
+            } else{
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Data Entry Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Max value should be greater than Min value. Please update values appropriately and click Save.");
+                alert.showAndWait();
+            }
+
 
         }
-        Stage stage;
-        Parent root;
-        stage = (Stage) partSaveButton.getScene().getWindow();
-        //load up OTHER FXML document
-        FXMLLoader loader = new FXMLLoader();
-        root = loader.load(getClass().getResource("Main_Screen.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+
+
 
 
     }

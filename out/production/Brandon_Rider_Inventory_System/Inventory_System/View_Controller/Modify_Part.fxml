@@ -7,7 +7,7 @@
 
 <AnchorPane id="AddPartMain" fx:id="modifyPart" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="491.0" prefWidth="543.0" style="-fx-background-color: #c0c0c0;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Inventory_System.View_Controller.Modify_Part_Controller">
 <children>
-    <Label layoutX="31.0" layoutY="25.0" prefHeight="21.0" prefWidth="106.0" text="Modify Part" textFill="#1c12e4">
+    <Label layoutX="31.0" layoutY="25.0" prefHeight="21.0" prefWidth="106.0" text="Modify Part" textFill="#126be3">
         <font>
             <Font name="Arial Bold" size="18.0" />
         </font>

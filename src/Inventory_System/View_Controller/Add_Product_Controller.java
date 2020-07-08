@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class Add_Product_Controller implements Initializable {
@@ -92,15 +93,28 @@ public class Add_Product_Controller implements Initializable {
     }
     @FXML
     private void productBackButtonHandler(ActionEvent event) throws IOException {
-        Stage stage;
-        Parent root;
-        stage=(Stage) productCancelButton.getScene().getWindow();
-        //load up OTHER FXML document
-        FXMLLoader loader=new FXMLLoader();
-        root = loader.load(getClass().getResource("Main_Screen.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        // Creating Alert window and dialog
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Cancel Adding Product");
+        alert.setContentText("Are you sure you want to cancel before adding the selected Product?");
+
+        //Delete confirm button options
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            Stage stage;
+            Parent root;
+            stage=(Stage) productCancelButton.getScene().getWindow();
+            //load up OTHER FXML document
+            FXMLLoader loader=new FXMLLoader();
+            root = loader.load(getClass().getResource("Main_Screen.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } else {
+            // If they click Cancel they return to the application
+        }
+
     }
 
     @FXML
@@ -122,15 +136,27 @@ public class Add_Product_Controller implements Initializable {
         Product productNew = new Product(incrementedProductID, productName, productPrice, productStock, productMin, productMax);
         Inventory.addProduct(productNew);
 
-        Stage stage;
-        Parent root;
-        stage = (Stage) productSaveButton.getScene().getWindow();
-        //load up OTHER FXML document
-        FXMLLoader loader = new FXMLLoader();
-        root = loader.load(getClass().getResource("Main_Screen.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        //Check for errors and allow them to fix errors if Min value less than Max value
+        if(productNew.checkForErrors() == 0){
+            Stage stage;
+            Parent root;
+            stage = (Stage) productSaveButton.getScene().getWindow();
+            //load up OTHER FXML document
+            FXMLLoader loader = new FXMLLoader();
+            root = loader.load(getClass().getResource("Main_Screen.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } else{
+            //User alert
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Data Entry Error");
+            alert.setHeaderText(null);
+            alert.setContentText("Min value should be less than Max value. Please update values appropriately and click Save.");
+            alert.showAndWait();
+        }
+
+
 
         }
 
@@ -207,10 +233,23 @@ public class Add_Product_Controller implements Initializable {
     //delete products handler
     @FXML
     private void productsPartsDeleteButtonHandler(ActionEvent event){
-        // Select the product
-        Part deleteSelectedAssociatedPart = productPartsTableView2.getSelectionModel().getSelectedItem();
-        //Delete the part
-        this.product.deleteAssociatedPart(deleteSelectedAssociatedPart);
+        // Creating Alert window and dialog
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Delete Part From Product");
+        alert.setContentText("Are you sure you want to delete the Part associated with the selected Product?");
+
+        //Delete confirm button options
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            // Select the product
+            Part deleteSelectedAssociatedPart = productPartsTableView2.getSelectionModel().getSelectedItem();
+            //Delete the part
+            this.product.deleteAssociatedPart(deleteSelectedAssociatedPart);
+        } else {
+            // If they click Cancel they return to the application
+        }
+
     }
 
 }

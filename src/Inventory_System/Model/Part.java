@@ -1,9 +1,9 @@
 package Inventory_System.Model;
 
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.*;
 import javafx.collections.ObservableList;
+
+import java.util.ArrayList;
 
 import static Inventory_System.Model.Inventory.allPartsList;
 
@@ -16,6 +16,7 @@ public abstract class Part {
     private SimpleIntegerProperty stock;
     private SimpleIntegerProperty min;
     private SimpleIntegerProperty max;
+
 
     // methods
     //constructor
@@ -80,4 +81,42 @@ public abstract class Part {
     public static ObservableList<Part> getAllParts(){
         return allPartsList;
     }
+
+    public IntegerProperty getIdProp() {
+        return this.id;
+    }
+
+    public IntegerProperty getStockProp() {
+        return this.stock;
+    }
+
+    public IntegerProperty getMinProp() {
+        return this.min;
+    }
+
+    public IntegerProperty getMaxProp() {
+        return this.max;
+    }
+
+    public DoubleProperty getPriceProp() {
+        return this.price;
+    }
+
+    public StringProperty getNameProp() { return this.name; }
+
+    public int checkForErrors(){
+        int errorNumber;
+        if(this.getMin() >= this.getMax()){
+            //System.out.println("Min value should be less than Max value. Please update values appropriately and click Save.");
+            errorNumber = 1;
+        }else if(this.getMin() <= this.getMax()){
+            //System.out.println("Max value should be more than Min value. Please update values appropriately and click Save.");
+            errorNumber = 2;
+        } else{
+            errorNumber = 0;
+        }
+        return errorNumber;
+
+    }
+
 }
