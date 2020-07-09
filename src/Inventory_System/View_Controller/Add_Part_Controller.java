@@ -1,7 +1,6 @@
 package Inventory_System.View_Controller;
 
 import Inventory_System.Model.*;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,22 +9,17 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import static Inventory_System.Model.Inventory.allPartsList;
+
 
 public class Add_Part_Controller implements Initializable {
+    /**************************************ATTRIBUTES*******************************************/
 
-    @FXML
-    private RadioButton partInHouseOption;
-    @FXML
-    private RadioButton partOutsourceOption;
-    @FXML
-    private ToggleGroup partSourceOptions;
+    //FXML Text Fields
     @FXML
     private TextField partAddName;
     @FXML
@@ -40,20 +34,35 @@ public class Add_Part_Controller implements Initializable {
     private TextField partAddMax;
     @FXML
     private TextField partAddMin;
+
+    //FXML ToggleGroups
+    @FXML
+    private ToggleGroup partSourceOptions;
+
+    //FXML Labels
     @FXML
     private Label machineIDLabel;
+
+    //FXML Buttons
     @FXML
     private Button partCancelButton;
     @FXML
     private Button partSaveButton;
+    @FXML
+    private RadioButton partInHouseOption;
+    @FXML
+    private RadioButton partOutsourceOption;
+
+    //Object part
     Part part;
 
+    /**********************************METHODS*************************************/
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        //partInHouseOption.setSelected(true);
+        //Nothing to initialize
     }
 
+    //method to go back from the Add Product screen to the Main Screen
     @FXML
     private void partBackButtonHandler(ActionEvent event) throws IOException {
         // Creating Alert window and dialog
@@ -77,9 +86,9 @@ public class Add_Part_Controller implements Initializable {
         } else {
             // If they click Cancel they return to the application
         }
-
     }
 
+    //Method to set the part
     public void setPart(Part part) {
         this.part = part;
 
@@ -87,16 +96,16 @@ public class Add_Part_Controller implements Initializable {
         partAddName.setText(part.getName());
     }
 
+    //Method to determine if it is an InHouse or Outsourced Part and to set the text/label accordingly
     @FXML
     private void partInHouseOptionHandler(ActionEvent event) {
         partOutsourceOption.setSelected(false);
         partAddMachineID.clear();
-        //System.out.println("InHouseOptionHandler");
         machineIDLabel.setText("Machine ID");
         partAddMachineID.setPromptText("Machine ID");
-
     }
 
+    //Method to determine if it is an InHouse or Outsourced Part and to set the text/label accordingly
     @FXML
     private void partOutsourceOptionHandler(ActionEvent event) {
         partInHouseOption.setSelected(false);
@@ -106,11 +115,11 @@ public class Add_Part_Controller implements Initializable {
         partAddMachineID.setPromptText("Company Name");
     }
 
+    //Method to save the new Part to the allPartsList after determining if it is an InHouse or Outsourced Part and then redirects to Main Screen
     @FXML
     private void partSaveButtonHandler (ActionEvent event) throws IOException {
         // Grabs the last part ID used from the static variable partGlobalID and increments it by 1
         int incrementedPartID = Inventory.getPartGlobalID() + 1;
-        //System.out.println(incrementedPartID);
 
         // Setting incremented partGlobalID
         Inventory.setPartGlobalID(incrementedPartID);
@@ -120,6 +129,7 @@ public class Add_Part_Controller implements Initializable {
         double partPrice = Double.parseDouble(partAddPrice.getText());
         int partMax = Integer.parseInt(partAddMax.getText());
         int partMin = Integer.parseInt(partAddMin.getText());
+
         //used for Company Name and Machine ID
         String partCompanyName = partAddMachineID.getText();
 
@@ -130,9 +140,6 @@ public class Add_Part_Controller implements Initializable {
         if (optionSelected == partInHouseOption) {
             //parse companyName String to partMachineID int
             int partMachineID = Integer.parseInt(partCompanyName);
-            //System.out.println("InHouse");
-            //System.out.println(partCompanyName);
-            //System.out.println(partMachineID);
             InHouse partNew = new InHouse(incrementedPartID, partName, partPrice, partStock, partMin, partMax, partMachineID);
             Inventory.addPart(partNew);
             //Check for errors and allow them to fix errors if Min value less than Max value
@@ -154,13 +161,11 @@ public class Add_Part_Controller implements Initializable {
                 alert.setContentText("Min value should be less than Max value. Please update values appropriately and click Save.");
                 alert.showAndWait();
             }
-
+        //Outsourced Part creation and error logic
         } else {
-            //System.out.println("Outsourced");
-            //System.out.println(partCompanyName);
             Outsourced partNew = new Outsourced(incrementedPartID, partName, partPrice, partStock, partMin, partMax, partCompanyName);
             Inventory.addPart(partNew);
-
+            //Check for errors and allow them to fix errors if Min value less than Max value
             if(partNew.checkForErrors() == 0){
                 Stage stage;
                 Parent root;
@@ -178,12 +183,6 @@ public class Add_Part_Controller implements Initializable {
                 alert.setContentText("Max value should be greater than Min value. Please update values appropriately and click Save.");
                 alert.showAndWait();
             }
-
-
         }
-
-
-
-
     }
 }

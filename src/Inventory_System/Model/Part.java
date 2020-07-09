@@ -2,14 +2,12 @@ package Inventory_System.Model;
 
 import javafx.beans.property.*;
 import javafx.collections.ObservableList;
-
-import java.util.ArrayList;
-
 import static Inventory_System.Model.Inventory.allPartsList;
 
 //class
 public abstract class Part {
-    //attributes
+    /**************************************ATTRIBUTES*******************************************/
+
     private SimpleIntegerProperty id;
     private SimpleStringProperty name;
     private SimpleDoubleProperty price;
@@ -18,7 +16,7 @@ public abstract class Part {
     private SimpleIntegerProperty max;
 
 
-    // methods
+    /**********************************METHODS*************************************/
     //constructor
     public Part(int id, String name, double price, int stock, int min, int max) {
         this.id = new SimpleIntegerProperty(id);

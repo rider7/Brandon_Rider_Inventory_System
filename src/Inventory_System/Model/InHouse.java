@@ -1,14 +1,13 @@
 package Inventory_System.Model;
 
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
 
 //class
 public class InHouse extends Part{
-    //attributes
+    /**************************************ATTRIBUTES*******************************************/
     private final SimpleIntegerProperty partMachineID;
 
-    //methods
+    /**********************************METHODS*************************************/
     public InHouse(int id, String name, double price, int stock, int min, int max, int machineID) {
         super(id, name, price, stock, min, max);
 
@@ -22,7 +21,6 @@ public class InHouse extends Part{
 
     //Getter
     public int getPartMachineID() {
-        //System.out.println(this.partMachineID.get());
         return this.partMachineID.get();
     }
 

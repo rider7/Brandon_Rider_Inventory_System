@@ -1,14 +1,14 @@
 package Inventory_System.Model;
 
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 //class
 public class Outsourced extends Part{
-    //attributes
+    /**************************************ATTRIBUTES*******************************************/
+
     private final SimpleStringProperty partCompanyName;
 
-    //methods
+    /**********************************METHODS*************************************/
     public Outsourced(int id, String name, double price, int stock, int min, int max, String companyName) {
         super(id, name, price, stock, min, max);
         this.partCompanyName = new SimpleStringProperty(companyName);

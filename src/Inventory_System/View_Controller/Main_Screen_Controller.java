@@ -1,14 +1,10 @@
 package Inventory_System.View_Controller;
 
 import java.net.URL;
-import java.sql.SQLOutput;
 import java.util.ResourceBundle;
-
 import Inventory_System.Model.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,98 +12,78 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import Inventory_System.Inventory_System;
 import java.util.Optional;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import static Inventory_System.Model.Inventory.allPartsList;
-import static Inventory_System.Model.Inventory.allProductsList;
-
-
-
 public class Main_Screen_Controller implements Initializable {
 
+    /**************************************ATTRIBUTES*******************************************/
+    //FXML Table 1
     @FXML
     private TableView<Part> partsTableView;
-
     @FXML
     private TableColumn<Part, Integer> partsIDColumn;
-
     @FXML
     private TableColumn<Part, String> partsNameColumn;
-
     @FXML
     private TableColumn<Part, Integer> partsInventoryColumn;
-
     @FXML
     private TableColumn<Part, Double> partsPriceColumn;
 
-    @FXML
-    private Button addPartsButton;
-
-    @FXML
-    private Button modifyPartsButton;
-
-    @FXML
-    private Button partsDeleteButton;
-
-    @FXML
-    private Button partsSearchButton;
-
+    //FXML Table 2
     @FXML
     private TextField partsSearchField;
-
     @FXML
     private TableView<Product> productsTableView;
-
     @FXML
     private TableColumn<Product, Integer> productsIDColumn;
-
     @FXML
     private TableColumn<Product, String> productsNameColumn;
-
     @FXML
     private TableColumn<Product, Integer> productsInventoryColumn;
-
     @FXML
     private TableColumn<Product, Double> productsPriceColumn;
 
+    //FXML Buttons
+    @FXML
+    private Button addPartsButton;
+    @FXML
+    private Button modifyPartsButton;
+    @FXML
+    private Button partsDeleteButton;
+    @FXML
+    private Button partsSearchButton;
     @FXML
     private Button addProductsButton;
-
     @FXML
     private Button productsDeleteButton;
-
     @FXML
     private Button modifyProductsButton;
-
     @FXML
     private Button productsSearchButton;
-
-    @FXML
-    private TextField productsSearchField;
-
     @FXML
     private Button exitMainButton;
 
+    //FXML TextFields
+    @FXML
+    private TextField productsSearchField;
+
+    //Variables
     private static int selPart;
     private static int selProduct;
 
-    //methods
-    public static int selectedPart(){return selPart;}
-    public static int selectedProduct(){return selProduct;}
 
-    //Initialize and setup the table with data
+    /**********************************METHODS*************************************/
+
+    //Method to initialize and setup the table with data
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //sets the columns parts
@@ -125,12 +101,11 @@ public class Main_Screen_Controller implements Initializable {
         productsPriceColumn.setCellValueFactory(new PropertyValueFactory<Product, Double>("price"));
         productsInventoryColumn.setCellValueFactory(new PropertyValueFactory<Product, Integer>("stock"));
 
-
         //set the items on the table from the observable list for parts
         productsTableView.setItems(Inventory.getAllProducts());
     }
 
-//    //My original add scene handler before seeing the webinar
+    //Method to change scene to the Add_Part.xml
     @FXML
     private void addPartSceneHandler(ActionEvent event) throws IOException {
         //System.out.println("addPartButton Click Worked");
@@ -142,9 +117,8 @@ public class Main_Screen_Controller implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-    //Change scene to modify part scene
 
-    //Change scene to Modify_Part.fmxl with populated data that is selected to Add Part
+    //Method to change scene to Modify_Part.fmxl with populated data that is selected to Add Part
     @FXML
     private void modifyPartSceneHandler(ActionEvent event) throws IOException {
         Stage stage;
@@ -158,7 +132,7 @@ public class Main_Screen_Controller implements Initializable {
         stage.setScene(scene);
         stage.show();
 
-        //if statement to determine if it is a inhouse or outsourced part using instanceof
+        //if statement to determine if it is a InHouse or Outsourced part using instanceof
         if(partsTableView.getSelectionModel().getSelectedItem() instanceof InHouse){
             Modify_Part_Controller controller = loader.getController();
             InHouse inhouse= (InHouse) partsTableView.getSelectionModel().getSelectedItem();
@@ -166,14 +140,13 @@ public class Main_Screen_Controller implements Initializable {
 
         }
         else{
-            //System.out.println("Outsourced Modify");
             Modify_Part_Controller controller = loader.getController();
             Outsourced outsourced= (Outsourced) partsTableView.getSelectionModel().getSelectedItem();
             controller.setOutsourcedPart(outsourced);
         }
     }
 
-    //Change scene to add product scene
+    //Method to change scene to add product scene
     @FXML
     private void addProductSceneHandler(ActionEvent event) throws IOException {
         //System.out.println("addProductButton Click Worked");
@@ -186,6 +159,7 @@ public class Main_Screen_Controller implements Initializable {
         stage.show();
     }
 
+    //Method to change scene to Modify_Product.fxml scene
     @FXML
     private void modifyProductSceneHandler(ActionEvent event) throws IOException {
         Stage stage;
@@ -203,14 +177,12 @@ public class Main_Screen_Controller implements Initializable {
         controller.setProduct(product);
     }
 
-
-    //Search Part functionality
+    //Method to search the list of Parts
     public void getResultsHandlerParts(ActionEvent actionEvent) {
-        //get text user has entered in textfield
-       // System.out.println("Search button event worked!");
+        //Used to get the text entered by the user
         String searchStringParts = partsSearchField.getText();
 
-        //create new observable list and set it to the output of searchByPart method after passing in searchStringParts through loops
+        //Creates new observable list and set it to the output of searchByPart method after passing in searchStringParts through loops
         ObservableList<Part> filteredPartsList = searchByPartName(searchStringParts);
 
         //If search does not return part name then look for part id
@@ -224,16 +196,14 @@ public class Main_Screen_Controller implements Initializable {
             }
             catch(NumberFormatException e)
                 {
-                    //ignore
+                    //No catch needed
                 }
-
         }
         partsTableView.setItems(filteredPartsList);
-
     }
 
+    //Method used to search the list of Part by Name specifically
     private ObservableList<Part> searchByPartName(String partialPart){
-        //System.out.println("Search method ran!");
         //ObservableList to return with filtered Parts
         ObservableList<Part> allPartsTempList =FXCollections.observableArrayList();
 
@@ -244,13 +214,12 @@ public class Main_Screen_Controller implements Initializable {
         for(Part searchPart : allPartsList){
             if(searchPart.getName().toLowerCase().contains(partialPart)){
                 allPartsTempList.add(searchPart);
-                //System.out.println("If statement worked!");
             }
         }
-
         return allPartsTempList;
 }
 
+    //Method used to search the list of Parts by ID specifically
     private Part searchByPartID(int id){
         //List from Inventory to walk through finding filtered Parts
         ObservableList<Part> allPartsList = Part.getAllParts();
@@ -265,11 +234,9 @@ public class Main_Screen_Controller implements Initializable {
         return null;
     }
 
-    //Search Product functionality
-
+    //Method used to search Products
     public void getResultsHandlerProducts(ActionEvent actionEvent) {
-        //get text user has entered in textfield
-        // System.out.println("Search button event worked!");
+        //Used to get the text entered by the user
         String searchStringProducts = productsSearchField.getText();
 
         //create new observable list and set it to the output of searchByProduct method after passing in searchString through loops
@@ -286,16 +253,13 @@ public class Main_Screen_Controller implements Initializable {
             }
             catch(NumberFormatException e)
             {
-                //ignore
+                //Not needed
             }
-
         }
         productsTableView.setItems(filteredProductsList);
-
     }
 
     private ObservableList<Product> searchByProductName(String partialProduct){
-        //System.out.println("Search method ran!");
         //ObservableList to return with filtered Products
         ObservableList<Product> allProductsTempList =FXCollections.observableArrayList();
 
@@ -306,13 +270,12 @@ public class Main_Screen_Controller implements Initializable {
         for(Product searchStringProducts : allProductsList){
             if(searchStringProducts.getName().toLowerCase().contains(partialProduct)){
                 allProductsTempList.add(searchStringProducts);
-                //System.out.println("If statement worked!");
             }
         }
-
         return allProductsTempList;
     }
 
+    //Method to search for a Product by ID specifically
     private Product searchByProductID(int id){
         //List from Inventory to walk through finding filtered Parts
         ObservableList<Product> allProductsList = Product.getAllProducts();
@@ -326,6 +289,7 @@ public class Main_Screen_Controller implements Initializable {
         }
         return null;
     }
+    //Method to Exit
     @FXML
     private void exitButtonEventHandler(ActionEvent event) {
         // Creating Alert window and dialog
@@ -342,11 +306,9 @@ public class Main_Screen_Controller implements Initializable {
         } else {
             // If they click Cancel they return to the application
         }
-
-
-
     }
 
+    //Method to delete Part
     @FXML
     private void partsDeleteButtonHandler(ActionEvent event) {
         // Creating Alert window and dialog
@@ -368,6 +330,7 @@ public class Main_Screen_Controller implements Initializable {
         }
         }
 
+        //Method to delete Products
     @FXML
     private void productsDeleteButtonHandler(ActionEvent event) {
         // Creating Alert window and dialog
@@ -388,6 +351,9 @@ public class Main_Screen_Controller implements Initializable {
             // If they click Cancel they return to the application
         }
     }
+
+    public static int selectedPart(){return selPart;}
+    public static int selectedProduct(){return selProduct;}
     }
 
 

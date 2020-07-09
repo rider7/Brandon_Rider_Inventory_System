@@ -1,6 +1,5 @@
 package Inventory_System.View_Controller;
 
-import Inventory_System.Model.InHouse;
 import Inventory_System.Model.Inventory;
 import Inventory_System.Model.Part;
 import Inventory_System.Model.Product;
@@ -15,17 +14,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class Add_Product_Controller implements Initializable {
-
-    //attributes
-    @FXML
-    private Button productCancelButton;
+    /**************************************ATTRIBUTES*******************************************/
+    //FXML TextFields
     @FXML
     private TextField productAddName;
     @FXML
@@ -38,12 +34,16 @@ public class Add_Product_Controller implements Initializable {
     private TextField productAddMin;
     @FXML
     private TextField partsSearchField;
+
+    //FXML Buttons
+    @FXML
+    private Button productCancelButton;
     @FXML
     private Button productSaveButton;
     @FXML
     private Button partsSearchFieldButton;
 
-    //table 1
+    //FXML table 1
     @FXML
     private TableView<Part> productPartsTableView;
     @FXML
@@ -55,7 +55,7 @@ public class Add_Product_Controller implements Initializable {
     @FXML
     private TableColumn<Part, Integer> productInventoryLevelColumn;
 
-    //table 2
+    //FXML table 2
     @FXML
     private TableView<Part> productPartsTableView2;
     @FXML
@@ -67,9 +67,11 @@ public class Add_Product_Controller implements Initializable {
     @FXML
     private TableColumn<Part, Integer> productInventoryLevelColumn2;
 
+    //Product Object product
     private Product product;
 
-    //methods
+    /**********************************METHODS*************************************/
+    //Method to initialize the table data
     public void initialize(URL location, ResourceBundle resources) {
         //create new instance of Product with default values
         product = new Product(0,"Product Name Here",0.00,0,0,0);

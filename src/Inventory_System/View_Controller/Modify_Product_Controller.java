@@ -12,17 +12,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import static Inventory_System.Model.Inventory.allProductsList;
-
 public class Modify_Product_Controller implements Initializable {
 
-    //attributes
+    /**************************************ATTRIBUTES*******************************************/
     //table 1
     @FXML
     private TableView<Part> productPartsTableView;
@@ -78,6 +75,7 @@ public class Modify_Product_Controller implements Initializable {
     private Product product;
     private Product modifyProduct;
 
+    /**********************************METHODS*************************************/
     //Initialize and setup the table with data
 
     public void initialize(URL location, ResourceBundle resources) {
@@ -92,16 +90,6 @@ public class Modify_Product_Controller implements Initializable {
 
         //set the items on the table from the observable list for parts
         productPartsTableView.setItems(Inventory.getAllParts());
-
-//        //sets the columns parts
-//        productPartIDColumn2.setCellValueFactory(new PropertyValueFactory<Part, Integer>("id"));
-//        productPartNameColumn2.setCellValueFactory(new PropertyValueFactory<Part, String>("name"));
-//        productPriceColumn2.setCellValueFactory(new PropertyValueFactory<Part, Double>("price"));
-//        productInventoryLevelColumn2.setCellValueFactory(new PropertyValueFactory<Part, Integer>("stock"));
-//
-//        //set the items on the table from the observable list for parts
-//        productPartsTableView2.setItems(product.getAllAssociatedParts());
-//        //productPartsTableView2.setItems(productPartsTableView2.getSelectionModel().getSelectedItem().getAssociatedParts());
 
         this.modifyProduct= Inventory.lookupProduct(Main_Screen_Controller.selectedProduct());
         this.productModifyID.setText(Integer.toString(this.modifyProduct.getId()));
@@ -127,6 +115,7 @@ public class Modify_Product_Controller implements Initializable {
 
     }
 
+    //Method to set the Product
     public void setProduct(Product product) {
         this.product = product;
 
@@ -139,7 +128,7 @@ public class Modify_Product_Controller implements Initializable {
 
     }
 
-
+//Method to go back to the Main_Screen.fxml scene
     @FXML
     private void productBackButtonHandler2(ActionEvent event) throws IOException {
         // Creating Alert window and dialog
@@ -166,6 +155,7 @@ public class Modify_Product_Controller implements Initializable {
 
     }
 
+    //Method to save the Product
     public void productSaveHandler(ActionEvent event) throws IOException{
         //variables for product parameters
         int productID = Integer.parseInt(productModifyID.getText());
@@ -201,7 +191,7 @@ public class Modify_Product_Controller implements Initializable {
 
     }
 
-    //delete products handler
+    //Method to delete the Part associated with the Product
     @FXML
     private void productsPartsDeleteButtonHandler(ActionEvent event){
         // Creating Alert window and dialog
@@ -221,10 +211,9 @@ public class Modify_Product_Controller implements Initializable {
             // If they click Cancel they return to the application
         }
 
-
     }
 
-    //main search functionality
+    //Method to search the results for Parts
     public void getResultsHandlerParts(ActionEvent actionEvent) {
         //get text user has entered in textfield
         String searchStringParts = partsSearchField.getText();
@@ -245,12 +234,11 @@ public class Modify_Product_Controller implements Initializable {
             {
                 //ignore
             }
-
         }
         productPartsTableView.setItems(filteredPartsList);
-
     }
-    //search by part name
+
+    //Method to search the Parts list by Name specifically
     private ObservableList<Part> searchByPartName(String partialPart){
         //System.out.println("Search method ran!");
         //ObservableList to return with filtered Parts
@@ -266,10 +254,10 @@ public class Modify_Product_Controller implements Initializable {
                 //System.out.println("If statement worked!");
             }
         }
-
         return allPartsTempList;
     }
-    //search by part ID
+
+    //Method to search the Parts list by ID specifically
     private Part searchByPartID(int id){
         //List from Inventory to walk through finding filtered Parts
         ObservableList<Part> allPartsList = Part.getAllParts();
@@ -284,6 +272,7 @@ public class Modify_Product_Controller implements Initializable {
         return null;
     }
 
+    //Method to add to an associated Part to a Product
     @FXML
     private void addAssociatedPartHandler2(ActionEvent event)    {
         //Get the selected item for the associated part

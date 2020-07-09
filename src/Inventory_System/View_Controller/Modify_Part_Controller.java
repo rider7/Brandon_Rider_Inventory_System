@@ -11,13 +11,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class Modify_Part_Controller {
-
+    /**************************************ATTRIBUTES*******************************************/
+    //FXML TextFields
     @FXML
     private TextField partModifyID;
     @FXML
@@ -32,30 +32,33 @@ public class Modify_Part_Controller {
     private TextField partModifyMin;
     @FXML
     private TextField partModifyCompany;
+
+    //FXML Labels
     @FXML
     private Label machineIDLabel;
-    @FXML
-    private RadioButton partInHouseOption;
-    @FXML
-    private RadioButton partOutsourceOption;
+
+
+    //FXML Buttons
     @FXML
     private Button partCancelButton2;
     @FXML
     private Button partSaveButton2;
+    @FXML
+    private RadioButton partInHouseOption;
+    @FXML
+    private RadioButton partOutsourceOption;
 
-
-
+    //Initialized Objects
     Part part;
     InHouse inhouse;
     Outsourced outsourced;
 
-
+    /**********************************METHODS*************************************/
     public void initialize(URL url, ResourceBundle rb) {
-
 
     }
 
-
+    //Method to go back to Main_Screen.fxml scene
     @FXML
     private void partBackButtonHandler2(ActionEvent event) throws IOException {
         Stage stage;
@@ -69,6 +72,7 @@ public class Modify_Part_Controller {
         stage.show();
     }
 
+    //Method to set a Part
     public void setPart(Part part) {
         this.part = part;
 
@@ -80,6 +84,7 @@ public class Modify_Part_Controller {
 
     }
 
+    //Method to set a InHouse Part
     public void setInHousePart(InHouse inhouse) {
         this.inhouse = inhouse;
 
@@ -95,6 +100,7 @@ public class Modify_Part_Controller {
         partInHouseOption.setSelected(true);
     }
 
+    //Method to set a Outsourced Part
     public void setOutsourcedPart(Outsourced outsourced) {
         this.outsourced = outsourced;
 

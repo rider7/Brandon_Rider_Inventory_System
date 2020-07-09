@@ -5,47 +5,47 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="739.0" prefWidth="1277.0" style="-fx-background-color: #c0c0c0;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Inventory_System.View_Controller.Add_Product_Controller">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="739.0" prefWidth="1277.0" style="-fx-background-color: #808080;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Inventory_System.View_Controller.Add_Product_Controller">
 <children>
     <Pane layoutX="19.0" layoutY="12.0" prefHeight="708.0" prefWidth="1233.0" style="-fx-border-color: #999999; -fx-border-radius: 5px;">
         <children>
-            <TableView fx:id="productPartsTableView2" layoutX="724.0" layoutY="357.0" prefHeight="200.0" prefWidth="482.0">
+            <TableView fx:id="productPartsTableView2" layoutX="692.0" layoutY="347.0" prefHeight="210.0" prefWidth="514.0">
                 <columns>
-                    <TableColumn fx:id="productPartIDColumn2" prefWidth="120.0" text="Part ID" />
-                    <TableColumn fx:id="productPartNameColumn2" prefWidth="120.0" text="Part Name" />
-                    <TableColumn fx:id="productInventoryLevelColumn2" prefWidth="120.0" text="Inventory Level" />
-                    <TableColumn fx:id="productPriceColumn2" prefWidth="120.0" text="Price per Unit" />
+                    <TableColumn fx:id="productPartIDColumn2" prefWidth="127.0" text="Part ID" />
+                    <TableColumn fx:id="productPartNameColumn2" prefWidth="119.0" text="Part Name" />
+                    <TableColumn fx:id="productInventoryLevelColumn2" prefWidth="131.0" text="Inventory Level" />
+                    <TableColumn fx:id="productPriceColumn2" prefWidth="136.0" text="Price per Unit" />
                 </columns>
             </TableView>
-            <Text fill="#126be3" layoutX="45.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Add Product" wrappingWidth="342.98828125">
+            <Text fill="#126be3" layoutX="85.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Add Product" wrappingWidth="378.98828125">
                 <font>
-                    <Font name="Arial" size="20.0" />
+                    <Font name="Times New Roman" size="20.0" />
                 </font>
             </Text>
-            <TableView fx:id="productPartsTableView" layoutX="724.0" layoutY="92.0" prefHeight="200.0" prefWidth="482.0">
+            <TableView fx:id="productPartsTableView" layoutX="692.0" layoutY="92.0" prefHeight="200.0" prefWidth="514.0">
                 <columns>
-                    <TableColumn fx:id="productPartIDColumn" prefWidth="120.0" text="Part ID" />
-                    <TableColumn fx:id="productPartNameColumn" prefWidth="120.0" text="Part Name" />
-                    <TableColumn fx:id="productInventoryLevelColumn" prefWidth="120.0" text="Inventory Level" />
-                    <TableColumn fx:id="productPriceColumn" prefWidth="120.0" text="Price/Cost per Unit" />
+                    <TableColumn fx:id="productPartIDColumn" prefWidth="127.0" text="Part ID" />
+                    <TableColumn fx:id="productPartNameColumn" prefWidth="125.0" text="Part Name" />
+                    <TableColumn fx:id="productInventoryLevelColumn" prefWidth="122.0" text="Inventory Level" />
+                    <TableColumn fx:id="productPriceColumn" prefWidth="139.0" text="Price/Cost per Unit" />
                 </columns>
             </TableView>
-            <Button fx:id="assocPartAddButton" alignment="CENTER" contentDisplay="CENTER" layoutX="1084.0" layoutY="305.0" mnemonicParsing="false" onAction="#addAssociatedPartHandler" prefHeight="36.0" prefWidth="100.0" text="Add">
+            <Button fx:id="assocPartAddButton" alignment="CENTER" contentDisplay="CENTER" layoutX="1119.0" layoutY="298.0" mnemonicParsing="false" onAction="#addAssociatedPartHandler" prefHeight="36.0" prefWidth="87.0" text="Add">
                 <opaqueInsets>
                     <Insets />
                 </opaqueInsets>
             </Button>
-            <Button fx:id="deleteAssociatedPartsButton" alignment="CENTER" contentDisplay="CENTER" layoutX="1084.0" layoutY="579.0" mnemonicParsing="false" onAction="#productsPartsDeleteButtonHandler" prefHeight="36.0" prefWidth="100.0" text="Delete">
+            <Button fx:id="deleteAssociatedPartsButton" alignment="CENTER" contentDisplay="CENTER" layoutX="1119.0" layoutY="569.0" mnemonicParsing="false" onAction="#productsPartsDeleteButtonHandler" prefHeight="43.0" prefWidth="87.0" text="Delete">
                 <opaqueInsets>
                     <Insets />
                 </opaqueInsets>
             </Button>
-            <Button fx:id="partsSearchFieldButton" alignment="CENTER" contentDisplay="CENTER" layoutX="851.0" layoutY="36.0" mnemonicParsing="false" onAction="#getResultsHandlerParts" prefHeight="36.0" prefWidth="100.0" text="Search">
+            <Button fx:id="partsSearchFieldButton" alignment="CENTER" contentDisplay="CENTER" layoutX="724.0" layoutY="36.0" mnemonicParsing="false" onAction="#getResultsHandlerParts" prefHeight="36.0" prefWidth="87.0" text="Search">
                 <opaqueInsets>
                     <Insets />
                 </opaqueInsets>
             </Button>
-            <TextField fx:id="partsSearchField" layoutX="965.0" layoutY="41.0" />
+            <TextField fx:id="partsSearchField" layoutX="834.0" layoutY="42.0" prefHeight="25.0" prefWidth="195.0" />
             <Button fx:id="productCancelButton" alignment="CENTER" contentDisplay="CENTER" layoutX="1084.0" layoutY="648.0" mnemonicParsing="false" onAction="#productBackButtonHandler" prefHeight="36.0" prefWidth="100.0" text="Cancel">
                 <opaqueInsets>
                     <Insets />
@@ -56,66 +56,66 @@
                     <Insets />
                 </opaqueInsets>
             </Button>
-            <AnchorPane id="AddPartMain" layoutX="45.0" layoutY="107.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="491.0" prefWidth="543.0" style="-fx-background-color: #c0c0c0;">
+            <AnchorPane id="AddPartMain" layoutX="64.0" layoutY="96.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="491.0" prefWidth="543.0" style="-fx-background-color: #c0c0c0;">
                 <children>
-                    <Label layoutX="59.0" layoutY="97.0" prefHeight="21.0" prefWidth="66.0" text="ID">
+                    <Label layoutX="100.0" layoutY="84.0" prefHeight="21.0" prefWidth="51.0" text="ID">
                         <font>
-                            <Font name="Arial" size="14.0" />
+                            <Font name="Times New Roman" size="14.0" />
                         </font>
                     </Label>
-                    <Label layoutX="59.0" layoutY="259.0" prefHeight="27.0" prefWidth="92.0" text="Price/Cost">
+                    <Label layoutX="101.0" layoutY="205.0" prefHeight="36.0" prefWidth="66.0" text="Price/Cost">
                         <font>
-                            <Font name="Arial" size="14.0" />
+                            <Font name="Times New Roman" size="14.0" />
                         </font>
                     </Label>
-                    <Label layoutX="316.0" layoutY="313.0" prefHeight="21.0" prefWidth="66.0" text="Min">
+                    <Label layoutX="301.0" layoutY="260.0" prefHeight="21.0" prefWidth="51.0" text="Min">
                         <font>
-                            <Font name="Arial" size="14.0" />
+                            <Font name="Times New Roman" size="14.0" />
                         </font>
                     </Label>
-                    <Label layoutX="59.0" layoutY="205.0" prefHeight="21.0" prefWidth="66.0" text="Inv">
+                    <Label layoutX="100.0" layoutY="170.0" prefHeight="21.0" prefWidth="66.0" text="Inv">
                         <font>
-                            <Font name="Arial" size="14.0" />
+                            <Font name="Times New Roman" size="14.0" />
                         </font>
                     </Label>
-                    <Label layoutX="59.0" layoutY="313.0" prefHeight="21.0" prefWidth="66.0" text="Max">
+                    <Label layoutX="104.0" layoutY="260.0" prefHeight="21.0" prefWidth="58.0" text="Max">
                         <font>
-                            <Font name="Arial" size="14.0" />
+                            <Font name="Times New Roman" size="14.0" />
                         </font>
                     </Label>
-                    <Label layoutX="59.0" layoutY="151.0" prefHeight="21.0" prefWidth="66.0" text="Name">
+                    <Label layoutX="100.0" layoutY="126.0" prefHeight="21.0" prefWidth="51.0" text="Name">
                         <font>
-                            <Font name="Arial" size="14.0" />
+                            <Font name="Times New Roman" size="14.0" />
                         </font>
                     </Label>
-                    <TextField fx:id="productAddName" layoutX="170.0" layoutY="144.0" prefHeight="42.0" prefWidth="195.0" promptText="Part Name">
+                    <TextField fx:id="productAddName" layoutX="170.0" layoutY="118.0" prefHeight="36.0" prefWidth="195.0" promptText="Part Name">
                         <font>
-                            <Font name="Arial Italic" size="14.0" />
+                            <Font name="Times New Roman Italic" size="14.0" />
                         </font>
                     </TextField>
-                    <TextField fx:id="productAddInventory" layoutX="170.0" layoutY="198.0" prefHeight="42.0" prefWidth="195.0" promptText="Inventory">
+                    <TextField fx:id="productAddInventory" layoutX="170.0" layoutY="162.0" prefHeight="36.0" prefWidth="195.0" promptText="Inventory">
                         <font>
-                            <Font name="Arial Italic" size="14.0" />
+                            <Font name="Times New Roman Italic" size="14.0" />
                         </font>
                     </TextField>
-                    <TextField fx:id="productAddPrice" layoutX="170.0" layoutY="252.0" prefHeight="42.0" prefWidth="195.0" promptText="Price/Cost">
+                    <TextField fx:id="productAddPrice" layoutX="170.0" layoutY="205.0" prefHeight="36.0" prefWidth="195.0" promptText="Price/Cost">
                         <font>
-                            <Font name="Arial Italic" size="14.0" />
+                            <Font name="Times New Roman Italic" size="14.0" />
                         </font>
                     </TextField>
-                    <TextField fx:id="id" disable="true" editable="false" layoutX="170.0" layoutY="90.0" prefHeight="42.0" prefWidth="195.0" text="Auto Gen - Disabled">
+                    <TextField fx:id="id" disable="true" editable="false" layoutX="170.0" layoutY="76.0" prefHeight="36.0" prefWidth="195.0" text="Auto Gen - Disabled">
                         <font>
                             <Font name="System Italic" size="14.0" />
                         </font>
                     </TextField>
-                    <TextField fx:id="productAddMax" layoutX="170.0" layoutY="304.0" prefHeight="42.0" prefWidth="128.0" promptText="Maximum">
+                    <TextField fx:id="productAddMax" layoutX="170.0" layoutY="252.0" prefHeight="36.0" prefWidth="120.0" promptText="Maximum">
                         <font>
-                            <Font name="Arial Italic" size="14.0" />
+                            <Font name="Times New Roman Italic" size="14.0" />
                         </font>
                     </TextField>
-                    <TextField fx:id="productAddMin" layoutX="357.0" layoutY="306.0" prefHeight="42.0" prefWidth="128.0" promptText="Minimum">
+                    <TextField fx:id="productAddMin" layoutX="352.0" layoutY="252.0" prefHeight="36.0" prefWidth="120.0" promptText="Minimum">
                         <font>
-                            <Font name="Arial Italic" size="14.0" />
+                            <Font name="Times New Roman Italic" size="14.0" />
                         </font>
                     </TextField>
                 </children>

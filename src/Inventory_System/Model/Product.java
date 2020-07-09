@@ -5,13 +5,12 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import static Inventory_System.Model.Inventory.allPartsList;
 import static Inventory_System.Model.Inventory.allProductsList;
 
 //class
 public class Product {
-    //attributes
+    /**************************************ATTRIBUTES*******************************************/
+
     private static ObservableList<Part> associatedParts = FXCollections.observableArrayList(
             new InHouse(3,"Speaker",23.00, 78, 1, 50, 3),
             new Outsourced(4,"Mouse",12.00, 12, 1, 70,"test")
@@ -25,8 +24,7 @@ public class Product {
     private final SimpleIntegerProperty min;
     private final SimpleIntegerProperty max;
 
-    //methods
-
+    /**********************************METHODS*************************************/
 
     public Product(int id, String name, double price, int stock, int min, int max) {
         this.id = new SimpleIntegerProperty(id);

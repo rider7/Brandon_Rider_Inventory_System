@@ -6,7 +6,8 @@ import javafx.collections.ObservableList;
 //class
 public class Inventory {
 
-    //attributes
+    /**************************************ATTRIBUTES*******************************************/
+
     //Global IDs used to create new parts and products...starting at five because of sample data
     private static int partGlobalID = 4;
     private static int productGlobalID = 4;
@@ -27,7 +28,7 @@ public class Inventory {
             new Product(4,"Designer Desktop System",1600.00, 64, 1, 10)
     );
 
-    //methods
+    /**********************************METHODS*************************************/
     //add a new Part to allPartList
     public static void addPart(Part newPart){
         allPartsList.add(newPart);
@@ -46,13 +47,13 @@ public class Inventory {
         return (Product)allProductsList.get(productId);
     }
 
-//    public ObservableList<Part> lookupPart(String partName){
-//        return
-//    }
+    public ObservableList<Part> lookupPart(String partName){
+        return allPartsList;
+    }
 
-//    public ObservableList<Product> lookupProduct(String productName){
-//        return
-//    }
+    public ObservableList<Product> lookupProduct(String productName){
+        return allProductsList;
+    }
 
     public static void updatePart(Part selectedPart){
         allPartsList.set(selectedPart.getId()-1, selectedPart);
