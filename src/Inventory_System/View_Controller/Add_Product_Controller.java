@@ -138,6 +138,8 @@ public class Add_Product_Controller implements Initializable {
         Product productNew = new Product(incrementedProductID, productName, productPrice, productStock, productMin, productMax);
         Inventory.addProduct(productNew);
 
+        //Need to create a new list of Parts to associated with productNew Product
+
         //Check for errors and allow them to fix errors if Min value less than Max value
         if(productNew.checkForErrors() == 0){
             Stage stage;

@@ -105,11 +105,7 @@ public abstract class Part {
     public int checkForErrors(){
         int errorNumber;
         if(this.getMin() >= this.getMax()){
-            //System.out.println("Min value should be less than Max value. Please update values appropriately and click Save.");
             errorNumber = 1;
-        }else if(this.getMin() <= this.getMax()){
-            //System.out.println("Max value should be more than Min value. Please update values appropriately and click Save.");
-            errorNumber = 2;
         } else{
             errorNumber = 0;
         }

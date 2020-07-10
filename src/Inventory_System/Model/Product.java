@@ -11,9 +11,8 @@ import static Inventory_System.Model.Inventory.allProductsList;
 public class Product {
     /**************************************ATTRIBUTES*******************************************/
 
-    private static ObservableList<Part> associatedParts = FXCollections.observableArrayList(
-            new InHouse(3,"Speaker",23.00, 78, 1, 50, 3),
-            new Outsourced(4,"Mouse",12.00, 12, 1, 70,"test")
+    private ObservableList<Part> associatedParts = FXCollections.observableArrayList(
+            new InHouse(0,"Name of Product",0.00, 0, 0, 0, 0)
     );
 
 
@@ -104,11 +103,8 @@ public class Product {
     public int checkForErrors(){
         int errorNumber;
         if(this.getMin() >= this.getMax()){
-            //System.out.println("Min value should be less than Max value. Please update values appropriately and click Save.");
             errorNumber = 1;
-        }else if(this.getMin() <= this.getMax()){
-            //System.out.println("Max value should be more than Min value. Please update values appropriately and click Save.");
-            errorNumber = 2;
+
         } else{
             errorNumber = 0;
         }
