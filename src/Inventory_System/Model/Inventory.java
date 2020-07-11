@@ -10,14 +10,14 @@ public class Inventory {
 
     //Global IDs used to create new parts and products...starting at five because of sample data
     private static int partGlobalID = 4;
-    private static int productGlobalID = 4;
+    private static int productGlobalID = 0;
 
     // - allParts:ObservableList<Part>
     public static ObservableList<Part> allPartsList = FXCollections.observableArrayList(
             new InHouse(1,"Monitor",30.00, 34, 1, 10, 1),
             new InHouse(2,"Keyboard",10.00, 38, 1, 30, 2),
             new InHouse(3,"Speaker",23.00, 78, 1, 50, 3),
-            new Outsourced(4,"Mouse",12.00, 12, 1, 70,"test")
+            new Outsourced(4,"Mouse",12.00, 12, 1, 70,"BestBuy")
     );
 
     // - allProducts:ObservableList<Product>
@@ -55,7 +55,6 @@ public class Inventory {
     }
 
     public static void updateProduct(Product selectedProduct){
-        System.out.println("update Product method");
         allProductsList.set(selectedProduct.getId()-1, selectedProduct);
     }
 

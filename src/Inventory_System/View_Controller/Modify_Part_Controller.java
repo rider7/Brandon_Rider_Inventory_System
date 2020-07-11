@@ -187,7 +187,6 @@ public class Modify_Part_Controller {
     @FXML
     private void partInHouseOptionHandler(ActionEvent event) {
         partOutsourceOption.setSelected(false);
-        //partAddMachineID.clear();
         machineIDLabel.setText("Machine ID");
         System.out.println("InHouseOptionHandler");
     }
@@ -196,8 +195,7 @@ public class Modify_Part_Controller {
     @FXML
     private void partOutsourceOptionHandler(ActionEvent event) {
         partInHouseOption.setSelected(false);
-        //partAddMachineID.clear();
-        machineIDLabel.setText("Company Name");//partAddMachineID.setPromptText("Company Name");
+        machineIDLabel.setText("Company Name");
         System.out.println("OutsourceOptionHandler");
     }
 }

@@ -80,7 +80,7 @@ public class Modify_Product_Controller implements Initializable {
 
     public void initialize(URL location, ResourceBundle resources) {
         //create new instance of Product with default values
-        product = new Product(0,"Product Name Here",0.00,0,0,0);
+        //product = new Product(0,"Product Name Here",0.00,0,0,0);
 
         //sets the columns parts
         productPartIDColumn.setCellValueFactory(new PropertyValueFactory<Part, Integer>("id"));
@@ -91,27 +91,28 @@ public class Modify_Product_Controller implements Initializable {
         //set the items on the table from the observable list for parts
         productPartsTableView.setItems(Inventory.getAllParts());
 
-        this.modifyProduct = Inventory.lookupProduct(Main_Screen_Controller.selectedProduct());
-        this.productModifyID.setText(Integer.toString(this.modifyProduct.getId()));
-        this.productModifyName.setText(this.modifyProduct.getName());
-        this.productModifyStock.setText(Integer.toString(this.modifyProduct.getStock()));
-        this.productModifyPrice.setText(Double.toString(this.modifyProduct.getPrice()));
-        this.productModifyMin.setText(Integer.toString(this.modifyProduct.getMin()));
-        this.productModifyMax.setText(Integer.toString(this.modifyProduct.getMax()));
+        this.product = Inventory.lookupProduct(Main_Screen_Controller.selectedProduct());
+        this.productModifyID.setText(Integer.toString(this.product.getId()));
+        this.productModifyName.setText(this.product.getName());
+        this.productModifyStock.setText(Integer.toString(this.product.getStock()));
+        this.productModifyPrice.setText(Double.toString(this.product.getPrice()));
+        this.productModifyMin.setText(Integer.toString(this.product.getMin()));
+        this.productModifyMax.setText(Integer.toString(this.product.getMax()));
 
-        this.productPartIDColumn2.setCellValueFactory((cellData) -> {
-            return (cellData.getValue()).getIdProp().asObject();
-        });
-        this.productPartNameColumn2.setCellValueFactory((cellData) -> {
-            return (cellData.getValue()).getNameProp();
-        });
-        this.productInventoryLevelColumn2.setCellValueFactory((cellData) -> {
-            return (cellData.getValue()).getStockProp().asObject();
-        });
-        this.productPriceColumn2.setCellValueFactory((cellData) -> {
-            return (cellData.getValue()).getPriceProp().asObject();
-        });
-        this.productPartsTableView2.setItems(this.modifyProduct.getAssociatedParts());
+
+//        this.productPartIDColumn2.setCellValueFactory((cellData) -> {
+//            return (cellData.getValue()).getIdProp().asObject();
+//        });
+//        this.productPartNameColumn2.setCellValueFactory((cellData) -> {
+//            return (cellData.getValue()).getNameProp();
+//        });
+//        this.productInventoryLevelColumn2.setCellValueFactory((cellData) -> {
+//            return (cellData.getValue()).getStockProp().asObject();
+//        });
+//        this.productPriceColumn2.setCellValueFactory((cellData) -> {
+//            return (cellData.getValue()).getPriceProp().asObject();
+//        });
+//        this.productPartsTableView2.setItems(this.product.getAssociatedParts());
 
 //        //sets the columns parts
 //        productPartIDColumn2.setCellValueFactory(new PropertyValueFactory<Part, Integer>("id"));
@@ -134,6 +135,20 @@ public class Modify_Product_Controller implements Initializable {
         productModifyPrice.setText(new Double(product.getPrice()).toString());
         productModifyMin.setText(new Integer(product.getMin()).toString());
         productModifyMax.setText(new Integer(product.getMax()).toString());
+
+        this.productPartIDColumn2.setCellValueFactory((cellData) -> {
+            return (cellData.getValue()).getIdProp().asObject();
+        });
+        this.productPartNameColumn2.setCellValueFactory((cellData) -> {
+            return (cellData.getValue()).getNameProp();
+        });
+        this.productInventoryLevelColumn2.setCellValueFactory((cellData) -> {
+            return (cellData.getValue()).getStockProp().asObject();
+        });
+        this.productPriceColumn2.setCellValueFactory((cellData) -> {
+            return (cellData.getValue()).getPriceProp().asObject();
+        });
+        this.productPartsTableView2.setItems(this.product.getAssociatedParts());
 
     }
 
@@ -177,20 +192,10 @@ public class Modify_Product_Controller implements Initializable {
         // modify product using updateProduct method in Inventory
         Product product = new Product(productID, productName, productPrice, productStock, productMin, productMax);
 
-//        //Get the selected item for the associated part
-//        Part selectedItem = productPartsTableView.getSelectionModel().getSelectedItem();
-//
-//        //Add the part to the part associated array for this instance
-//        product.updateAssociatedList(selectedItem);
-//            //product.getAssociatedParts();
-
-        ObservableList<Part> myPart = FXCollections.observableArrayList();
+        ObservableList<Part> myPart;
         myPart = this.productPartsTableView2.getItems();
         product.addAssociatedParts(myPart);
-
-
-
-
+        Inventory.updateProduct(product);
 
         if(product.checkForErrors() == 0){
             Stage stage;
