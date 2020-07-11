@@ -21,12 +21,7 @@ public class Inventory {
     );
 
     // - allProducts:ObservableList<Product>
-    public static ObservableList<Product> allProductsList = FXCollections.observableArrayList(
-            new Product(1,"Gaming Desktop System",1200.00, 34, 1, 5),
-            new Product(2,"Home Desktop System",800.00, 24, 1, 3),
-            new Product(3,"Enterprise Desktop System",1200.00, 34, 1, 5),
-            new Product(4,"Designer Desktop System",1600.00, 64, 1, 10)
-    );
+    public static ObservableList<Product> allProductsList = FXCollections.observableArrayList();
 
     /**********************************METHODS*************************************/
     //add a new Part to allPartList
@@ -60,8 +55,11 @@ public class Inventory {
     }
 
     public static void updateProduct(Product selectedProduct){
+        System.out.println("update Product method");
         allProductsList.set(selectedProduct.getId()-1, selectedProduct);
     }
+
+
 
     public static boolean deletePart(Part selectedPart){
         allPartsList.remove(selectedPart);

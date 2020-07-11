@@ -11,9 +11,7 @@ import static Inventory_System.Model.Inventory.allProductsList;
 public class Product {
     /**************************************ATTRIBUTES*******************************************/
 
-    private ObservableList<Part> associatedParts = FXCollections.observableArrayList(
-            new InHouse(0,"Name of Product",0.00, 0, 0, 0, 0)
-    );
+    private ObservableList<Part> associatedParts = FXCollections.observableArrayList();
 
 
     private final SimpleIntegerProperty id;
@@ -38,15 +36,14 @@ public class Product {
         return id.get();
     }
 
-    public void setId(int id) {
-
+    public void setId(int id) {this.id.set(id);
     }
 
     public String getName() {
         return name.get();
     }
 
-    public void setName(String name) {
+    public void setName(String name) {this.name.set(name);
 
     }
 
@@ -54,7 +51,7 @@ public class Product {
         return price.get();
     }
 
-    public void setPrice(double price) {
+    public void setPrice(double price) {this.price.set(price);
 
     }
 
@@ -62,7 +59,7 @@ public class Product {
         return stock.get();
     }
 
-    public void setStock(int stock) {
+    public void setStock(int stock) {this.stock.set(stock);
 
     }
 
@@ -70,7 +67,7 @@ public class Product {
         return min.get();
     }
 
-    public void setMin(int min) {
+    public void setMin(int min) {this.min.set(min);
 
     }
 
@@ -78,15 +75,20 @@ public class Product {
         return max.get();
     }
 
-    public void setMax(int max) {
+    public void setMax(int max) {this.max.set(max);
 
     }
 
     public ObservableList<Part> getAssociatedParts(){
         return this.associatedParts;
     }
+
     public void addAssociatedPart(Part associatedPart){
         this.associatedParts.add(associatedPart);
+    }
+
+    public void addAssociatedParts(ObservableList<Part> associatedParts){
+        this.associatedParts.setAll(associatedParts);
     }
 
     public static ObservableList<Product> getAllProducts(){
@@ -110,6 +112,11 @@ public class Product {
         }
         return errorNumber;
 
+    }
+
+    public void updateAssociatedList(Part associatedPart){
+        System.out.println("update Product method");
+        associatedParts.set(associatedPart.getId()-1, associatedPart);
     }
 
 }

@@ -91,7 +91,7 @@ public class Modify_Product_Controller implements Initializable {
         //set the items on the table from the observable list for parts
         productPartsTableView.setItems(Inventory.getAllParts());
 
-        this.modifyProduct= Inventory.lookupProduct(Main_Screen_Controller.selectedProduct());
+        this.modifyProduct = Inventory.lookupProduct(Main_Screen_Controller.selectedProduct());
         this.productModifyID.setText(Integer.toString(this.modifyProduct.getId()));
         this.productModifyName.setText(this.modifyProduct.getName());
         this.productModifyStock.setText(Integer.toString(this.modifyProduct.getStock()));
@@ -112,6 +112,15 @@ public class Modify_Product_Controller implements Initializable {
             return (cellData.getValue()).getPriceProp().asObject();
         });
         this.productPartsTableView2.setItems(this.modifyProduct.getAssociatedParts());
+
+//        //sets the columns parts
+//        productPartIDColumn2.setCellValueFactory(new PropertyValueFactory<Part, Integer>("id"));
+//        productPartNameColumn2.setCellValueFactory(new PropertyValueFactory<Part, String>("name"));
+//        productPriceColumn2.setCellValueFactory(new PropertyValueFactory<Part, Double>("price"));
+//        productInventoryLevelColumn2.setCellValueFactory(new PropertyValueFactory<Part, Integer>("stock"));
+//
+//        //set the items on the table from the observable list for parts
+//        productPartsTableView2.setItems(product.getAllAssociatedParts());
 
     }
 
@@ -158,17 +167,31 @@ public class Modify_Product_Controller implements Initializable {
     //Method to save the Product
     public void productSaveHandler(ActionEvent event) throws IOException{
         //variables for product parameters
-        int productID = Integer.parseInt(productModifyID.getText());
-        String productName = productModifyName.getText();
-        int productStock = Integer.parseInt(productModifyStock.getText());
-        double productPrice = Double.parseDouble(productModifyPrice.getText());
-        int productMax = Integer.parseInt(productModifyMax.getText());
-        int productMin = Integer.parseInt(productModifyMin.getText());
+        int productID = Integer.parseInt(this.productModifyID.getText());
+        String productName = this.productModifyName.getText();
+        int productStock = Integer.parseInt(this.productModifyStock.getText());
+        double productPrice = Double.parseDouble(this.productModifyPrice.getText());
+        int productMax = Integer.parseInt(this.productModifyMax.getText());
+        int productMin = Integer.parseInt(this.productModifyMin.getText());
 
         // modify product using updateProduct method in Inventory
-            //System.out.println("modify product save handler");
-            Product product = new Product(productID, productName, productPrice, productStock, productMin, productMax);
-            Inventory.updateProduct(product);
+        Product product = new Product(productID, productName, productPrice, productStock, productMin, productMax);
+
+//        //Get the selected item for the associated part
+//        Part selectedItem = productPartsTableView.getSelectionModel().getSelectedItem();
+//
+//        //Add the part to the part associated array for this instance
+//        product.updateAssociatedList(selectedItem);
+//            //product.getAssociatedParts();
+
+        ObservableList<Part> myPart = FXCollections.observableArrayList();
+        myPart = this.productPartsTableView2.getItems();
+        product.addAssociatedParts(myPart);
+
+
+
+
+
         if(product.checkForErrors() == 0){
             Stage stage;
             Parent root;
@@ -187,8 +210,6 @@ public class Modify_Product_Controller implements Initializable {
             alert.setContentText("Min value should be less than Max value. Please update values appropriately and click Save.");
             alert.showAndWait();
         }
-
-
     }
 
     //Method to delete the Part associated with the Product
@@ -206,7 +227,7 @@ public class Modify_Product_Controller implements Initializable {
             // Select the product
             Part deleteSelectedAssociatedPart = productPartsTableView2.getSelectionModel().getSelectedItem();
             //Delete the part
-            this.product.deleteAssociatedPart(deleteSelectedAssociatedPart);
+            product.deleteAssociatedPart(deleteSelectedAssociatedPart);
         } else {
             // If they click Cancel they return to the application
         }

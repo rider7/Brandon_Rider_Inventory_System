@@ -139,6 +139,14 @@ public class Add_Product_Controller implements Initializable {
         Inventory.addProduct(productNew);
 
         //Need to create a new list of Parts to associated with productNew Product
+       // productNew.addAssociatedPart();
+
+        //Get the selected item for the associated part
+        Part selectedItem = productPartsTableView.getSelectionModel().getSelectedItem();
+
+        //Add the part to the part associated array for this instance
+        productNew.addAssociatedPart(selectedItem);
+
 
         //Check for errors and allow them to fix errors if Min value less than Max value
         if(productNew.checkForErrors() == 0){
