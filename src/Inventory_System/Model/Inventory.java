@@ -1,5 +1,7 @@
 package Inventory_System.Model;
 
+import com.sun.deploy.net.proxy.WDefaultBrowserProxyConfig;
+import com.sun.xml.internal.bind.v2.runtime.output.StAXExStreamWriterOutput;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -21,7 +23,9 @@ public class Inventory {
     );
 
     // - allProducts:ObservableList<Product>
-    public static ObservableList<Product> allProductsList = FXCollections.observableArrayList();
+    public static ObservableList<Product> allProductsList = FXCollections.observableArrayList(
+            new Product (0,"default", 0.00,0,0,0));
+
 
     /**********************************METHODS*************************************/
     //add a new Part to allPartList
@@ -55,7 +59,7 @@ public class Inventory {
     }
 
     public static void updateProduct(Product selectedProduct){
-        allProductsList.set(selectedProduct.getId()-1, selectedProduct);
+        allProductsList.set(selectedProduct.getId(), selectedProduct);
     }
 
 

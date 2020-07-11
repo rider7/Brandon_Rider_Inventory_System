@@ -147,6 +147,11 @@ public class Add_Product_Controller implements Initializable {
         //Add the part to the part associated array for this instance
         productNew.addAssociatedPart(selectedItem);
 
+        ObservableList<Part> myPart;
+        myPart = this.productPartsTableView2.getItems();
+        productNew.addAssociatedParts(myPart);
+        Inventory.updateProduct(productNew);
+
 
         //Check for errors and allow them to fix errors if Min value less than Max value
         if(productNew.checkForErrors() == 0){

@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class Modify_Part_Controller {
@@ -63,15 +64,28 @@ public class Modify_Part_Controller {
     //Method to go back to Main_Screen.fxml scene
     @FXML
     private void partBackButtonHandler2(ActionEvent event) throws IOException {
-        Stage stage;
-        Parent root;
-        stage=(Stage) partCancelButton2.getScene().getWindow();
-        //load up OTHER FXML document
-        FXMLLoader loader=new FXMLLoader();
-        root = loader.load(getClass().getResource("Main_Screen.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        // Creating Alert window and dialog
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Cancel Part Modification");
+        alert.setContentText("Are you sure you want to cancel the Part modification?");
+
+        //Exit confirm button options
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            Stage stage;
+            Parent root;
+            stage=(Stage) partCancelButton2.getScene().getWindow();
+            //load up OTHER FXML document
+            FXMLLoader loader=new FXMLLoader();
+            root = loader.load(getClass().getResource("Main_Screen.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } else {
+            // If they click Cancel they return to the application
+        }
+
     }
 
     //Method to set a Part
@@ -112,7 +126,7 @@ public class Modify_Part_Controller {
         partModifyPrice.setText(new Double(outsourced.getPrice()).toString());
         partModifyMin.setText(new Integer(outsourced.getMin()).toString());
         partModifyMax.setText(new Integer(outsourced.getMax()).toString());
-        partModifyCompany.setText(String.valueOf(outsourced.getPartCompanyName()));
+        partModifyCompany.setText(outsourced.getPartCompanyName());
 
         machineIDLabel.setText("Company Name");
         partOutsourceOption.setSelected(true);
@@ -158,7 +172,7 @@ public class Modify_Part_Controller {
 
             //inhouse modify part using updatePart method in Inventory
         } else{
-            //System.out.println("inhouse modify part if statement");
+            System.out.println("inhouse modify part if statement");
             int partMachineID = Integer.parseInt(partCompanyName);
             InHouse partInHouse = new InHouse(partID, partName, partPrice, partStock, partMin, partMax, partMachineID);
             Inventory.updatePart(partInHouse);

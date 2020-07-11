@@ -194,6 +194,7 @@ public class Modify_Product_Controller implements Initializable {
 
         ObservableList<Part> myPart;
         myPart = this.productPartsTableView2.getItems();
+        System.out.println(myPart.size());
         product.addAssociatedParts(myPart);
         Inventory.updateProduct(product);
 
@@ -305,5 +306,6 @@ public class Modify_Product_Controller implements Initializable {
         Part selectedItem = productPartsTableView.getSelectionModel().getSelectedItem();
         //Add the part to the part associated array for this instance
         this.product.addAssociatedPart(selectedItem);
+
     }
 }
