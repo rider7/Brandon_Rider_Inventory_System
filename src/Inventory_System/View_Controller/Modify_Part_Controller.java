@@ -32,6 +32,8 @@ public class Modify_Part_Controller {
     private TextField partModifyMin;
     @FXML
     private TextField partModifyCompany;
+    @FXML
+    private TextField partAddMachineID;
 
     //FXML Labels
     @FXML
@@ -180,5 +182,22 @@ public class Modify_Part_Controller {
             }
         }
 
+    }
+    //Method to determine if it is an InHouse or Outsourced Part and to set the text/label accordingly
+    @FXML
+    private void partInHouseOptionHandler(ActionEvent event) {
+        partOutsourceOption.setSelected(false);
+        //partAddMachineID.clear();
+        machineIDLabel.setText("Machine ID");
+        System.out.println("InHouseOptionHandler");
+    }
+
+    //Method to determine if it is an InHouse or Outsourced Part and to set the text/label accordingly
+    @FXML
+    private void partOutsourceOptionHandler(ActionEvent event) {
+        partInHouseOption.setSelected(false);
+        //partAddMachineID.clear();
+        machineIDLabel.setText("Company Name");//partAddMachineID.setPromptText("Company Name");
+        System.out.println("OutsourceOptionHandler");
     }
 }
