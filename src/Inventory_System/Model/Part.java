@@ -1,20 +1,22 @@
 package Inventory_System.Model;
 
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.*;
+import javafx.collections.ObservableList;
+import static Inventory_System.Model.Inventory.allPartsList;
 
 //class
-public class Part {
-    //attributes
-    private final SimpleIntegerProperty id;
-    private final SimpleStringProperty name;
-    private final SimpleDoubleProperty price;
-    private final SimpleIntegerProperty stock;
-    private final SimpleIntegerProperty min;
-    private final SimpleIntegerProperty max;
+public abstract class Part {
+    /**************************************ATTRIBUTES*******************************************/
 
-    // methods
+    private SimpleIntegerProperty id;
+    private SimpleStringProperty name;
+    private SimpleDoubleProperty price;
+    private SimpleIntegerProperty stock;
+    private SimpleIntegerProperty min;
+    private SimpleIntegerProperty max;
+
+
+    /**********************************METHODS*************************************/
     //constructor
     public Part(int id, String name, double price, int stock, int min, int max) {
         this.id = new SimpleIntegerProperty(id);
@@ -25,31 +27,32 @@ public class Part {
         this.max = new SimpleIntegerProperty(max);
     }
 
-    public void setId(int id){
 
+    public void setId(SimpleIntegerProperty id){
+        this.id = id;
     }
 
-    public void setName(String name){
-
+    public void setName(SimpleStringProperty name){
+        this.name = name;
     }
 
-    public void setPrice(double price){
-
+    public void setPrice(SimpleDoubleProperty price){
+        this.price = price;
     }
 
-    public void setStock(int stock){
-
+    public void setStock(SimpleIntegerProperty stock){
+        this.stock = stock;
     }
 
-    public void setMin(int min){
-
+    public void setMin(SimpleIntegerProperty min){
+        this.min = min;
     }
 
-    public void setMax(int max){
-
+    public void setMax(SimpleIntegerProperty max){
+        this.max = max;
     }
 
-    public int getId(){
+    public  int getId(){
         return id.get();
     }
 
@@ -72,4 +75,42 @@ public class Part {
     public int getMax(){
         return max.get();
     }
+
+    public static ObservableList<Part> getAllParts(){
+        return allPartsList;
+    }
+
+    public IntegerProperty getIdProp() {
+        return this.id;
+    }
+
+    public IntegerProperty getStockProp() {
+        return this.stock;
+    }
+
+    public IntegerProperty getMinProp() {
+        return this.min;
+    }
+
+    public IntegerProperty getMaxProp() {
+        return this.max;
+    }
+
+    public DoubleProperty getPriceProp() {
+        return this.price;
+    }
+
+    public StringProperty getNameProp() { return this.name; }
+
+    public int checkForErrors(){
+        int errorNumber;
+        if(this.getMin() >= this.getMax()){
+            errorNumber = 1;
+        } else{
+            errorNumber = 0;
+        }
+        return errorNumber;
+
+    }
+
 }
